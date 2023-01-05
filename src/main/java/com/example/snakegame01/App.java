@@ -40,6 +40,31 @@ import java.util.Random;
             root.getChildren().add(food);
             food.toFront();
         }
+        //adjust food
+        private void foodCantSpawnInsideSnake(){
+            food.moveFood();
+            while (isFoodInsideSnake()){
+                food.moveFood();
+            }
+
+
+        }
+
+        private boolean isFoodInsideSnake(){
+            int size = positions.size();
+            if(size > 2){
+                for (int i = size - snakeBody.size(); i < size; i++) {
+                    if(food.getPosition().getXPos() == (positions.get(i).getXPos())
+                            && food.getPosition().getYPos() == (positions.get(i).getYPos())){
+                        System.out.println("Inside");
+                        return true;
+                    }
+                }
+            }
+            return false;
+        }
+
+
         //Bildschirm anpassen
         private void adjustLocation(int WIDTH, int HEIGHT){
             //Wenns ausn Bildschrim raus geht:
@@ -100,6 +125,7 @@ import java.util.Random;
             newSnake();
             //Food machen:
             newFood();
+
 
             //Was ist Runnable?
             Runnable r = () -> {
