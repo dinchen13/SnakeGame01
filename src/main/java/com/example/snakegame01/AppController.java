@@ -115,7 +115,7 @@ public class AppController extends Application {
         public void start(Stage stage) throws IOException {
             //Bildschirm laden:
             root= new Pane();
-            root = FXMLLoader.load(com.example.snakegame01.Application.class.getResource("Game.fxml"));
+            root = FXMLLoader.load(App.class.getResource("Game.fxml"));
             // FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("Game.fxml"));
             //Scene scene = new Scene(fxmlLoader.load(), 680, 600);
 

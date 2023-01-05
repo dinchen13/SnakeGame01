@@ -1,4 +1,5 @@
 package com.example.snakegame01;
+import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -13,12 +14,11 @@ import java.io.IOException;
 import java.util.Random;
 
 
-    public class Application extends javafx.application.Application {
+    public class App extends Application {
 
         private static final int WIDTH =680;
         private static final int HEIGHT =600;
         private static final int RADIUS =8;
-
         private Pane root;
         private Snake snake;
         private Circle food;
@@ -32,7 +32,6 @@ import java.util.Random;
             snake=new Snake(580/2+100, 580/2, RADIUS+3);
             root.getChildren().add(snake);
             speed=200;
-            snake.toFront();
         }
         //Food erstellen:
         public void newFood(){
@@ -63,7 +62,7 @@ import java.util.Random;
                 if(gameOver()){
                     snake.setLength(0);
                     snake.removeTails();
-                    //root.getChildren().add(score);
+                    root.getChildren().add(score);
                     score.setText("Game Over\n Score:"+ snake.getLengthString());
                     newSnake();
                     newFood();
@@ -87,18 +86,15 @@ import java.util.Random;
         public void start(Stage stage) throws IOException {
             //Bildschirm laden:
             root= new Pane();
-            root = FXMLLoader.load(Application.class.getResource("Game.fxml"));
+            root = FXMLLoader.load(App.class.getResource("Game.fxml"));
             //FXMLLoader scene01 = new FXMLLoader(HelloApplication.class.getResource("Game.fxml"));
             //Scene scene = new Scene(scene01.load(), 680, 600);
-
-
-
 
             //Bildschirm erzeugen:
             /*root= new Pane();
             root.setPrefSize(WIDTH, HEIGHT);*/
-            //score= new Text(48,85,"0");
-            //root.getChildren().add(score);
+            score= new Text(48,85,"0");
+            root.getChildren().add(score);
             random = new Random();
             //Snake machen:
             newSnake();
@@ -146,6 +142,5 @@ import java.util.Random;
         //MMMAAAAIIIIINNNN:
         public static void main(String[] args) {
             launch();
-
         }
     }
