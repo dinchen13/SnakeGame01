@@ -98,5 +98,15 @@ public class Snake extends Circle{
         return false;
     }
 
+    public int getTailPositionX(int number){
+        return (int) tails.get(number).getCenterX();
+
+    }
+
+    public int getTailPositionY(int number){
+        return (int) tails.get(number).getCenterY();
+    }
+
+
 
 }

@@ -22,7 +22,7 @@ public class Food extends Circle {
         this.pane = pane;
         this.radius=(int) radius;
         super.setFill(color);
-        pane.getChildren().add(super);
+        pane.getChildren().add(this);
     }
     public int getPositionX() {
         return positionX;
@@ -47,19 +47,4 @@ public class Food extends Circle {
         setPositionX(positionX);
         setPositionY(positionY);
     }
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 }

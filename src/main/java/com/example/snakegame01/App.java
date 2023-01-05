@@ -5,6 +5,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
@@ -21,7 +22,7 @@ import java.util.Random;
         private static final int RADIUS =8;
         private Pane root;
         private Snake snake;
-        private Circle food;
+        private Food food;
         private int speed;
         private Text score;
         private Random random;
@@ -35,30 +36,20 @@ import java.util.Random;
         }
         //Food erstellen:
         public void newFood(){
-            food = new Circle(random.nextInt(460)+100+RADIUS,random.nextInt(460)+20+RADIUS,RADIUS); //da muss man noch was adjusten
-            food.setFill(Color.DARKRED);
-            root.getChildren().add(food);
-            food.toFront();
+            food = new Food(random.nextInt(460)+100+RADIUS,random.nextInt(460)+20+RADIUS, (AnchorPane) root,RADIUS);
         }
         //adjust food
-        private void foodCantSpawnInsideSnake(){
+        private void moveFoodInsideSnake(){
             food.moveFood();
             while (isFoodInsideSnake()){
                 food.moveFood();
             }
-
-
         }
 
         private boolean isFoodInsideSnake(){
-            int size = positions.size();
-            if(size > 2){
-                for (int i = size - snakeBody.size(); i < size; i++) {
-                    if(food.getPosition().getXPos() == (positions.get(i).getXPos())
-                            && food.getPosition().getYPos() == (positions.get(i).getYPos())){
-                        System.out.println("Inside");
-                        return true;
-                    }
+            for (int i = 0; i < snake.getLength(); i++) {
+                if((food.getPositionX() == snake.getTailPositionX(i)) && (food.getPositionY() == snake.getTailPositionY(i))){
+                    return true;
                 }
             }
             return false;
