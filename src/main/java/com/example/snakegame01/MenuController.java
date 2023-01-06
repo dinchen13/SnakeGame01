@@ -33,7 +33,9 @@ public class MenuController {
         stage.setTitle("Snake");
         stage.setScene(scene);
         stage.show();
-        launch();
+        //launch();
+        App Snake = new App();
+        Snake.start(stage);
 
     }
 
