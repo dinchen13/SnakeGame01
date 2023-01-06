@@ -14,6 +14,7 @@ public class Main extends Application {
 
             Parent root = FXMLLoader.load(getClass().getResource("menu.fxml"));
             Scene scene = new Scene(root);
+            stage.setTitle("Snake");
             stage.setScene(scene);
             stage.show();
 
@@ -21,6 +22,8 @@ public class Main extends Application {
             e.printStackTrace();
         }
     }
+
+
 
     public static void main(String[] args) {
         launch(args);

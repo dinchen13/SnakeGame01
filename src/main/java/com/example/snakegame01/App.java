@@ -134,13 +134,13 @@ import java.util.Random;
             //Tasten drücken:
             scene.addEventFilter(KeyEvent.KEY_PRESSED, event -> {
                 KeyCode code = event.getCode();
-                if ((code == KeyCode.UP)&&((snake.getDirection()!=Direction.DOWN)||(snake.getLength()==0))){
+                if ((code == KeyCode.W)&&((snake.getDirection()!=Direction.DOWN)||(snake.getLength()==0))){
                     snake.setDirection(Direction.UP);
-                } else if ((code == KeyCode.DOWN)&&((snake.getDirection()!=Direction.UP)||(snake.getLength()==0))) {
+                } else if ((code == KeyCode.S)&&((snake.getDirection()!=Direction.UP)||(snake.getLength()==0))) {
                     snake.setDirection(Direction.DOWN);
-                } else if ((code == KeyCode.LEFT)&&((snake.getDirection()!=Direction.RIGHT)||(snake.getLength()==0))){
+                } else if ((code == KeyCode.A)&&((snake.getDirection()!=Direction.RIGHT)||(snake.getLength()==0))){
                     snake.setDirection(Direction.LEFT);
-                } else if ((code == KeyCode.RIGHT)&&((snake.getDirection()!=Direction.LEFT)||(snake.getLength()==0))) {
+                } else if ((code == KeyCode.D)&&((snake.getDirection()!=Direction.LEFT)||(snake.getLength()==0))) {
                     snake.setDirection(Direction.RIGHT);
                 }
             });
