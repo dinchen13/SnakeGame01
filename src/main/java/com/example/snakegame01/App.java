@@ -1,8 +1,14 @@
 package com.example.snakegame01;
+
 import javafx.application.Application;
 import javafx.application.Platform;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
@@ -14,47 +20,63 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.util.Random;
 
-
     public class App extends Application {
+        //for SceneBuilder:
+        @FXML
+        private Button pause;
+        @FXML
+        private Button menu;
+        @FXML
+        private Text score;
+        @FXML
+        private Pane root;
+        private Stage stage;
+        private Scene scene;
+
+        public void switchToScene1(ActionEvent event) throws IOException {
+            root = FXMLLoader.load(getClass().getResource("menu.fxml"));
+            stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+            scene = new Scene(root);
+            stage.setScene(scene);
+            stage.show();
+        }
+
 
         private static final int WIDTH =680;
         private static final int HEIGHT =600;
         private static final int RADIUS =8;
-        private Pane root;
         private Snake snake;
         private Food food;
         private int speed;
-        private Text score;
         private Random random;
 
         //METHODEN:
         //Snake erstellen:
         private void newSnake(){
-            snake=new Snake(580/2+100, 580/2, RADIUS+3);
-            root.getChildren().add(snake);
+            snake=new Snake(580/2+100, 580/2, (AnchorPane) root, RADIUS+3);
             speed=200;
         }
         //Food erstellen:
         public void newFood(){
             food = new Food(random.nextInt(460)+100+RADIUS,random.nextInt(460)+20+RADIUS, (AnchorPane) root,RADIUS);
+            if(FoodInsideSnake()){moveFoodAway();}
         }
         //adjust food
-        private void moveFoodInsideSnake(){
+        private void moveFoodAway(){
             food.moveFood();
-            while (isFoodInsideSnake()){
+            while (FoodInsideSnake()){
                 food.moveFood();
             }
         }
-
-        private boolean isFoodInsideSnake(){
-            for (int i = 0; i < snake.getLength(); i++) {
-                if((food.getPositionX() == snake.getTailPositionX(i)) && (food.getPositionY() == snake.getTailPositionY(i))){
+        private boolean FoodInsideSnake(){
+            for (int i = 0; i < snake.getLength()-1; i++) {
+                //if((food.getPositionX() == snake.getTailPositionX(i)) && (food.getPositionY() == snake.getTailPositionY(i))){
+                if((food.intersects(snake.getBoundsInLocal()))&&(food.intersects(snake.getBoundsOfTail(i)))){
                     return true;
                 }
             }
             return false;
         }
-
 
         //Bildschirm anpassen
         private void adjustLocation(int WIDTH, int HEIGHT){
@@ -78,6 +100,12 @@ import java.util.Random;
                 if(gameOver()){
                     snake.setLength(0);
                     snake.removeTails();
+                    root.getChildren().clear();
+                    try {
+                        root = FXMLLoader.load(App.class.getResource("Game.fxml"));
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
                     root.getChildren().add(score);
                     score.setText("Game Over\n Score:"+ snake.getLengthString());
                     newSnake();
@@ -130,6 +158,8 @@ import java.util.Random;
             };
             //Scene setzten:
             Scene scene = new Scene(root);
+            //Color c = Color.rgb( 230, 255, 210);
+            //scene.setFill(c);
 
             //Tasten drücken:
             scene.addEventFilter(KeyEvent.KEY_PRESSED, event -> {

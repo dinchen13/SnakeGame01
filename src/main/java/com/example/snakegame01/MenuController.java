@@ -16,7 +16,6 @@ import static javafx.application.Application.launch;
 
 public class MenuController {
 
-
     @FXML
     public Button start;
     public Button howtoplay;
@@ -24,22 +23,17 @@ public class MenuController {
     private Scene scene;
     private Parent root;
 
-
-
     public void switchToScene2(ActionEvent event) throws IOException {
-       Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("Game.fxml")));
-        stage = (Stage)start.getScene().getWindow();
+        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("Game.fxml")));
+        stage = (Stage) start.getScene().getWindow();
         scene = new Scene(root);
         stage.setTitle("Snake");
         stage.setScene(scene);
         stage.show();
-        //launch();
+        //launch Game:
         App Snake = new App();
         Snake.start(stage);
-
     }
-
-
     public void switchToScene3(ActionEvent event) throws IOException {
         Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("howtoplay.fxml")));
         stage = (Stage)howtoplay.getScene().getWindow();
@@ -49,7 +43,6 @@ public class MenuController {
         stage.show();
         launch();
     }
-
     public void exitgame(ActionEvent Event) throws IOException {
 
         Alert a = new Alert(Alert.AlertType.NONE);

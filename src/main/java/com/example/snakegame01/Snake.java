@@ -1,4 +1,6 @@
 package com.example.snakegame01;
+import javafx.geometry.Bounds;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 
@@ -13,10 +15,11 @@ public class Snake extends Circle{
     private Direction direction;
     private static final int STEP =20;
     private Random random;
+    private AnchorPane pane;
 
 
     //Snake erstellen:
-    public Snake(double centerX, double centerY, double radius){
+    public Snake(double centerX, double centerY,AnchorPane pane, double radius){
         super(centerX, centerY, radius);
         tails=new ArrayList<>();
         direction=Direction.UP;
@@ -25,28 +28,34 @@ public class Snake extends Circle{
         int green = random.nextInt(255);
         int blue = random.nextInt(255);
         setFill(Color.rgb(red, green, blue));
+        this.pane = pane;
+        pane.getChildren().add(this);
     }
 
     //direction ändern
     public void setDirection(Direction direction) {
         this.direction = direction;
     }
-
     public Direction getDirection() {
         return direction;
     }
-
     //Länge zurückgeben
     public String getLengthString() {return String.valueOf(length);}
     public int getLength() {return length;}
-
     public void setLength(int length) {this.length = length;}
-
-    public void removeTails() {
+    public void removeTails() { //funkt nicht
         tails.clear();
     }
-
-    //bewegen:
+    public int getTailPositionX(int index){
+        return (int) tails.get(index).getCenterX();
+    }
+    public int getTailPositionY(int index){
+        return (int) tails.get(index).getCenterY();
+    }
+    public Bounds getBoundsOfTail(int index){
+        return tails.get(index).getBoundsInLocal();
+    }
+//bewegen:
     public void step() {
         for(int i = length-1; i>=0; i--){
             if(i==0){
@@ -97,16 +106,4 @@ public class Snake extends Circle{
         }
         return false;
     }
-
-    public int getTailPositionX(int number){
-        return (int) tails.get(number).getCenterX();
-
-    }
-
-    public int getTailPositionY(int number){
-        return (int) tails.get(number).getCenterY();
-    }
-
-
-
 }
