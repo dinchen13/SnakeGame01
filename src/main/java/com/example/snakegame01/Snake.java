@@ -11,7 +11,7 @@ import java.util.Random;
 public class Snake extends Circle{
 
     private List<Circle> tails;
-    private int length =0;
+    private int length=0;
     private Direction direction;
     private static final int STEP =20;
     private Random random;
@@ -30,6 +30,7 @@ public class Snake extends Circle{
         setFill(Color.rgb(red, green, blue));
         this.pane = pane;
         pane.getChildren().add(this);
+        this.length=0;
     }
 
     //direction ändern
@@ -40,8 +41,8 @@ public class Snake extends Circle{
         return direction;
     }
     //Länge zurückgeben
-    public String getLengthString() {return String.valueOf(length);}
-    public int getLength() {return length;}
+    public String getLengthString() {return String.valueOf(this.length);}
+    public int getLength() {return this.length;}
     public void setLength(int length) {this.length = length;}
     public void removeTails() { //funkt nicht
         tails.clear();

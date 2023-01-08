@@ -36,8 +36,8 @@ public class Food extends Circle {
         randomLocationFood();
     }
     public void randomLocationFood(){
-        int positionX = random.nextInt(460)+100+radius;
-        int positionY = random.nextInt(460)+20+radius;
+        int positionX = 50;//random.nextInt(460)+100+radius;
+        int positionY = 50;//random.nextInt(460)+20+radius;
         setPositionX(positionX);
         setPositionY(positionY);
     }

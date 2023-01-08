@@ -1,21 +1,23 @@
 package com.example.snakegame01;
-
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.stage.Stage;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 
-public class Main extends Application {
+import java.util.Objects;
 
+public class Main extends Application {
     @Override
     public void start(Stage stage) {
         try {
-
-            Parent root = FXMLLoader.load(getClass().getResource("menu.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource("LoadingScreen.fxml"));
+            //Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("LoadingScreen.fxml")));
             Scene scene = new Scene(root);
+
             stage.setTitle("Snake");
             stage.setScene(scene);
+            stage.centerOnScreen();
             stage.show();
 
         } catch(Exception e) {

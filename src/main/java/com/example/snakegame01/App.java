@@ -32,6 +32,16 @@ import java.util.Random;
         private Pane root;
         private Stage stage;
         private Scene scene;
+        Thread th;
+        private static final int WIDTH =680;
+        private static final int HEIGHT =600;
+        private static final int RADIUS =8;
+        private Snake snake;
+        private Snake snake2;
+        private Food food;
+        private int speed;
+        private Random random;
+        private boolean twoPlayer =false;
 
         public void switchToScene1(ActionEvent event) throws IOException {
             root = FXMLLoader.load(getClass().getResource("menu.fxml"));
@@ -41,37 +51,44 @@ import java.util.Random;
             stage.show();
         }
 
-
-        private static final int WIDTH =680;
-        private static final int HEIGHT =600;
-        private static final int RADIUS =8;
-        private Snake snake;
-        private Food food;
-        private int speed;
-        private Random random;
-
         //METHODEN:
         //Snake erstellen:
         private void newSnake(){
-            snake=new Snake(580/2+100, 580/2, (AnchorPane) root, RADIUS+3);
-            speed=200;
+            if(twoPlayer) {
+                snake=new Snake(580/2+100 - 200, 580/2+200, (AnchorPane) root, RADIUS+3);
+                snake2 = new Snake(580/2+100+200, 580/2-200, (AnchorPane) root, RADIUS + 3);
+                snake2.setDirection(Direction.DOWN);
+            }
+            else{
+                snake=new Snake(580/2+100, 580/2, (AnchorPane) root, RADIUS+3);
+            }
+            speed = 200;
         }
+
         //Food erstellen:
         public void newFood(){
             food = new Food(random.nextInt(460)+100+RADIUS,random.nextInt(460)+20+RADIUS, (AnchorPane) root,RADIUS);
-            if(FoodInsideSnake()){moveFoodAway();}
+            if(FoodInsideSnake(snake)){moveFoodAway();}
+            if(twoPlayer&&FoodInsideSnake(snake2)){moveFoodAway();}
         }
         //adjust food
         private void moveFoodAway(){
             food.moveFood();
-            while (FoodInsideSnake()){
-                food.moveFood();
+            if(twoPlayer){
+                while (FoodInsideSnake(snake)|| FoodInsideSnake(snake2)){
+                    food.moveFood();
+                }
+            }
+            else {
+                while (FoodInsideSnake(snake)){
+                    food.moveFood();
+                }
             }
         }
-        private boolean FoodInsideSnake(){
-            for (int i = 0; i < snake.getLength()-1; i++) {
-                //if((food.getPositionX() == snake.getTailPositionX(i)) && (food.getPositionY() == snake.getTailPositionY(i))){
-                if((food.intersects(snake.getBoundsInLocal()))&&(food.intersects(snake.getBoundsOfTail(i)))){
+        private boolean FoodInsideSnake(Snake snake){
+            for (int i = 0; i < snake.getLength(); i++) {
+                if((food.intersects(snake.getBoundsInLocal()))||(food.intersects(snake.getBoundsOfTail(i)))){
+                    //System.out.println("moveeee fooood");
                     return true;
                 }
             }
@@ -79,7 +96,7 @@ import java.util.Random;
         }
 
         //Bildschirm anpassen
-        private void adjustLocation(int WIDTH, int HEIGHT){
+        private void adjustLocation(Snake snake){
             //Wenns ausn Bildschrim raus geht:
             if(snake.getCenterX()>WIDTH-20){
                 snake.setCenterX(100+RADIUS+3);
@@ -93,14 +110,13 @@ import java.util.Random;
             }
         }
         //bewegen (snake)
-        public void move(int WIDTH, int HEIGHT){
+        public void move(){
             Platform.runLater(()-> {            //braucht man wenn ein anderer Thread (other than the creator) Änderungen machen könnte
                 snake.step();
-                adjustLocation(WIDTH, HEIGHT);
+                if(twoPlayer){snake2.step();}
+                adjustLocation(snake);
+                if(twoPlayer){adjustLocation(snake2);}
                 if(gameOver()){
-                    snake.setLength(0);
-                    snake.removeTails();
-                    root.getChildren().clear();
                     try {
                         root = FXMLLoader.load(App.class.getResource("Game.fxml"));
                     } catch (IOException e) {
@@ -119,10 +135,27 @@ import java.util.Random;
                     score.setText(""+snake.getLengthString());
                     newFood();
                 }
+                else if (twoPlayer&&(snake2.hitFood(food))){
+                    snake2.eat(food);
+                    if (snake2.getLength()<=10){speed=speed-7;}
+                    else if (snake2.getLength()<=20){speed=speed-4;}
+                    else if (snake2.getLength()>20){speed=speed-1;}
+                    score.setText(""+snake2.getLengthString());
+                    newFood();
+                }
             });
         }
         private boolean gameOver(){
-            return snake.eatSelf();
+            if (twoPlayer){
+                if(snake.eatSelf()){return true;}
+                else if(snake2.eatSelf()){return true;}
+                else if(snake.intersects(snake2.getBoundsInLocal())){return true;}
+                else if(snake2.intersects(snake.getBoundsInLocal())){return true;}
+                else{return false;}
+           }
+            else {
+                return snake.eatSelf();
+            }
         }
 
         //PROGRAMM:
@@ -140,17 +173,18 @@ import java.util.Random;
             score= new Text(48,85,"0");
             root.getChildren().add(score);
             random = new Random();
-            //Snake machen:
-            newSnake();
-            //Food machen:
-            newFood();
 
+            twoPlayer=MenuController.getMulti();
+            newSnake();
+            newFood();
 
             //Was ist Runnable?
             Runnable r = () -> {
                 try {
                     for (;;){
-                        move(WIDTH, HEIGHT);
+                        move();
+                        //if(twoPlayer){move(WIDTH, HEIGHT,snake2);}
+
                         Thread.sleep(speed);
                     }
                 }catch (InterruptedException ie){
@@ -173,6 +207,17 @@ import java.util.Random;
                 } else if ((code == KeyCode.D)&&((snake.getDirection()!=Direction.LEFT)||(snake.getLength()==0))) {
                     snake.setDirection(Direction.RIGHT);
                 }
+                if(twoPlayer) {
+                    if ((code == KeyCode.UP) && ((snake2.getDirection() != Direction.DOWN) || (snake2.getLength() == 0))) {
+                        snake2.setDirection(Direction.UP);
+                    } else if ((code == KeyCode.DOWN) && ((snake2.getDirection() != Direction.UP) || (snake2.getLength() == 0))) {
+                        snake2.setDirection(Direction.DOWN);
+                    } else if ((code == KeyCode.LEFT) && ((snake2.getDirection() != Direction.RIGHT) || (snake2.getLength() == 0))) {
+                        snake2.setDirection(Direction.LEFT);
+                    } else if ((code == KeyCode.RIGHT) && ((snake2.getDirection() != Direction.LEFT) || (snake2.getLength() == 0))) {
+                        snake2.setDirection(Direction.RIGHT);
+                    }
+                }
             });
 
             //Bildschirmeinstellungen:
@@ -182,7 +227,7 @@ import java.util.Random;
             stage.show();
 
             //Thread starten:
-            Thread th = new Thread(r);
+            th = new Thread(r);
             th. setDaemon(true);
             th.start();
         }
