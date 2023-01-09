@@ -27,18 +27,18 @@ public class Food extends Circle {
         return positionY;
     }
     public void setPositionX(int positionX) {
-        this.positionX = positionX;
+        this.setCenterX(positionX);
     }
     public void setPositionY(int positionY) {
-        this.positionY = positionY;
+        this.setCenterY(positionY);;
     }
     public void moveFood(){
         randomLocationFood();
     }
     public void randomLocationFood(){
-        int positionX = 50;//random.nextInt(460)+100+radius;
-        int positionY = 50;//random.nextInt(460)+20+radius;
-        setPositionX(positionX);
-        setPositionY(positionY);
+        int x =random.nextInt(460)+100+radius;
+        int y =random.nextInt(460)+20+radius;
+        setPositionX(x);
+        setPositionY(y);
     }
 }
