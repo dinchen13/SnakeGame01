@@ -178,7 +178,7 @@ import java.util.Random;
             newSnake();
             newFood();
 
-            //Was ist Runnable?
+            //Was ist Runnable? ein interface,
             Runnable r = () -> {
                 try {
                     for (;;){

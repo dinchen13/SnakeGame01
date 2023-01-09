@@ -14,7 +14,6 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.util.Objects;
 
-import static javafx.application.Application.launch;
 public class MenuController {
 
     @FXML
@@ -55,7 +54,6 @@ public class MenuController {
         stage.setScene(scene);
         stage.centerOnScreen();
         stage.show();
-        launch();
     }
 
     public void switchToScene2(ActionEvent event) throws IOException {
@@ -81,7 +79,7 @@ public class MenuController {
         stage.setScene(scene);
         stage.centerOnScreen();
         stage.show();
-        //launch();
+
     }
     public void exitgame(ActionEvent Event) throws IOException {
 
