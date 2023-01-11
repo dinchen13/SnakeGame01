@@ -43,11 +43,12 @@ public class MenuController {
     private Scene scene;
     private Parent root;
 
-    public static boolean getMulti (){
+    public static boolean isMultiplayer (){
         return multiplayer;
     }
     public static void setMulti(boolean value){multiplayer=value;}
-    public static boolean getColorsetting(){return singlecolor;}
+    public static boolean isSinglecolor(){return singlecolor;}
+    public static void setColor(boolean value){singlecolor=value;}
 
     public void switchToLoading1(ActionEvent event) throws IOException {
         Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("menu.fxml")));

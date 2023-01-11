@@ -49,7 +49,9 @@ import java.util.Random;
             scene = new Scene(root);
             stage.setScene(scene);
             stage.show();
+            //hier noch ne eigene classe oder methode schreiben die das alles zurücksetzt
             MenuController.setMulti(false);
+            MenuController.setColor(false);
         }
 
         //METHODEN:
@@ -175,7 +177,7 @@ import java.util.Random;
             root.getChildren().add(score);
             random = new Random();
 
-            twoPlayer=MenuController.getMulti();
+            twoPlayer=MenuController.isMultiplayer();
             newSnake();
             newFood();
 

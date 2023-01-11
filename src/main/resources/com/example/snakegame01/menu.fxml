@@ -57,7 +57,7 @@
          </font>
       </CheckBox>
       <Slider fx:id="playerCount" blockIncrement="1.0" layoutX="54.0" layoutY="154.0" majorTickUnit="1.0" max="1.0" minorTickCount="0" onMouseReleased="#onSliderChanged" prefHeight="54.0" prefWidth="194.0" showTickMarks="true" />
-      <Slider blockIncrement="1.0" layoutX="54.0" layoutY="252.0" majorTickUnit="1.0" max="1.0" minorTickCount="0" prefHeight="54.0" prefWidth="194.0" showTickMarks="true" />
+      <Slider fx:id="snakeColor" blockIncrement="1.0" layoutX="54.0" layoutY="252.0" majorTickUnit="1.0" max="1.0" minorTickCount="0" onMouseReleased="#onSliderChanged" prefHeight="54.0" prefWidth="194.0" showTickMarks="true" />
       <Text layoutX="41.0" layoutY="212.0" strokeType="OUTSIDE" strokeWidth="0.0" text="1 Player" />
       <Text layoutX="219.0" layoutY="213.0" strokeType="OUTSIDE" strokeWidth="0.0" text="2 Player" />
       <Text layoutX="196.0" layoutY="312.0" strokeType="OUTSIDE" strokeWidth="0.0" text="one color snake" />
