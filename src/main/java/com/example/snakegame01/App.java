@@ -49,6 +49,7 @@ import java.util.Random;
             scene = new Scene(root);
             stage.setScene(scene);
             stage.show();
+            MenuController.setMulti(false);
         }
 
         //METHODEN:
@@ -208,13 +209,13 @@ import java.util.Random;
                     snake.setDirection(Direction.RIGHT);
                 }
                 if(twoPlayer) {
-                    if ((code == KeyCode.UP) && ((snake2.getDirection() != Direction.DOWN) || (snake2.getLength() == 0))) {
+                    if ((code == KeyCode.W) && ((snake2.getDirection() != Direction.DOWN) || (snake2.getLength() == 0))) {
                         snake2.setDirection(Direction.UP);
-                    } else if ((code == KeyCode.DOWN) && ((snake2.getDirection() != Direction.UP) || (snake2.getLength() == 0))) {
+                    } else if ((code == KeyCode.S) && ((snake2.getDirection() != Direction.UP) || (snake2.getLength() == 0))) {
                         snake2.setDirection(Direction.DOWN);
-                    } else if ((code == KeyCode.LEFT) && ((snake2.getDirection() != Direction.RIGHT) || (snake2.getLength() == 0))) {
+                    } else if ((code == KeyCode.A) && ((snake2.getDirection() != Direction.RIGHT) || (snake2.getLength() == 0))) {
                         snake2.setDirection(Direction.LEFT);
-                    } else if ((code == KeyCode.RIGHT) && ((snake2.getDirection() != Direction.LEFT) || (snake2.getLength() == 0))) {
+                    } else if ((code == KeyCode.D) && ((snake2.getDirection() != Direction.LEFT) || (snake2.getLength() == 0))) {
                         snake2.setDirection(Direction.RIGHT);
                     }
                 }

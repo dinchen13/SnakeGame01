@@ -26,9 +26,10 @@ public class MenuController {
     public Button play;
     @FXML
     public Slider playerCount;
-    public static boolean multiplayer=false;
+    private static boolean multiplayer=false;
     @FXML
     public Slider snakeColor;
+    private static boolean singlecolor=false;
     @FXML
     public Slider backgroundColor;
     @FXML
@@ -45,6 +46,8 @@ public class MenuController {
     public static boolean getMulti (){
         return multiplayer;
     }
+    public static void setMulti(boolean value){multiplayer=value;}
+    public static boolean getColorsetting(){return singlecolor;}
 
     public void switchToLoading1(ActionEvent event) throws IOException {
         Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("menu.fxml")));
@@ -93,6 +96,9 @@ public class MenuController {
     public void onSliderChanged(){
         if(playerCount.getValue()>0.5){
             multiplayer=true;
+        }
+        if(snakeColor.getValue()>0.5){
+            singlecolor=true;
         }
 
     }
