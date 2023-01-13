@@ -171,11 +171,13 @@ import java.util.Random;
             //Bildschirm laden:
             root= new Pane();
             root = FXMLLoader.load(App.class.getResource("Game.fxml"));
+            Rectangle rect = new Rectangle(100, 20, 560, 560);
+            Color c= Color.rgb(58, 14, 14);
+            rect.setFill(c);
+            root.getChildren().add(rect);
+            rect.setVisible(false);
             if(MenuController.isDarkmode()){
-                Rectangle rect = new Rectangle(100, 20, 560, 560);
-                Color c= Color.rgb(58, 14, 14);
-                rect.setFill(c);
-                root.getChildren().add(rect);
+                rect.setVisible(true);
             }
             score= new Text(48,85,"0");
             root.getChildren().add(score);
