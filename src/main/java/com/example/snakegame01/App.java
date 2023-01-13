@@ -8,14 +8,11 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
@@ -24,17 +21,9 @@ import java.util.Objects;
 import java.util.Random;
 
     public class App extends Application {
-        //for SceneBuilder:
 
         @FXML
-        private Button pause;
-        @FXML
-        private Button reload;
-        @FXML
-        private Button menu;
-        @FXML
         private Text score;
-        @FXML
         private Pane root;
         private Stage stage;
         private Scene scene;
@@ -48,12 +37,14 @@ import java.util.Random;
         private int speed;
         private Random random;
         private boolean twoPlayer =false;
+        private boolean pause =false;
 
         public void switchToMenu(ActionEvent event) throws IOException {
             root = FXMLLoader.load(getClass().getResource("menu.fxml"));
             stage = (Stage)((Node)event.getSource()).getScene().getWindow();
             scene = new Scene(root);
             stage.setScene(scene);
+            stage.centerOnScreen();
             stage.show();
             //hier noch ne eigene classe oder methode schreiben die das alles zurücksetzt
             MenuController.setMulti(false);
@@ -74,6 +65,13 @@ import java.util.Random;
             //launch Game:
             App Snake = new App();
             Snake.start(stage);
+        }
+
+        public void MakePause(){
+            if (!pause){pause=true;}
+            else if (pause){pause=false;}
+            System.out.println(pause);
+            System.out.println("boah");
         }
 
 
@@ -137,7 +135,7 @@ import java.util.Random;
             }
         }
         //bewegen (snake)
-        public void move(){
+        public void updateGame(){
             Platform.runLater(()-> {            //braucht man wenn ein anderer Thread (other than the creator) Änderungen machen könnte
                 snake.step();
                 if(twoPlayer){snake2.step();}
@@ -149,8 +147,7 @@ import java.util.Random;
                     } catch (IOException e) {
                         throw new RuntimeException(e);
                     }
-                    root.getChildren().add(score);
-                    score.setText("Game Over\n Score:"+ snake.getLengthString());
+                    score.setText("Game Over");
                     newSnake();
                     newFood();
                 }
@@ -214,8 +211,7 @@ import java.util.Random;
             Runnable r = () -> {
                 try {
                     for (;;){
-                        move();
-
+                        updateGame();
                         Thread.sleep(speed);
                     }
                 }catch (InterruptedException ie){
@@ -264,3 +260,5 @@ import java.util.Random;
             launch();
         }
     }
+
+    //i love youuu kevin

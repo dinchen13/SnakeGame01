@@ -12,7 +12,7 @@
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#e18f24" height="600.0" stroke="BLACK" strokeType="INSIDE" width="680.0" />
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="560.0" layoutX="100.0" layoutY="20.0" stroke="BLACK" strokeType="INSIDE" width="560.0" />
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#80220e" height="600.0" stroke="BLACK" strokeType="INSIDE" width="51.0" />
-      <Button layoutX="25.0" layoutY="345.0" mnemonicParsing="false" prefHeight="99.0" prefWidth="52.0" text="Pause" textAlignment="CENTER">
+      <Button layoutX="25.0" layoutY="345.0" mnemonicParsing="false" onAction="#MakePause" prefHeight="99.0" prefWidth="52.0" text="Pause" textAlignment="CENTER">
          <font>
             <Font name="Verdana Pro Cond Light" size="12.0" />
          </font>

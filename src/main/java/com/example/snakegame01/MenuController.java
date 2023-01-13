@@ -86,7 +86,7 @@ public class MenuController {
     }
     public void switchToInfo(ActionEvent event) throws IOException {
         Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("howtoplay.fxml")));
-        stage = (Stage) howtoplay.getScene().getWindow();
+        //stage = (Stage) howtoplay.getScene().getWindow();
         stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setTitle("How to play");

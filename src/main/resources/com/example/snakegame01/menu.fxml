@@ -41,7 +41,7 @@
             <Font name="Arial Bold" size="61.0" />
          </font>
       </Text>
-      <Button fx:id="howtoplay" layoutX="448.0" layoutY="449.0" mnemonicParsing="false" onAction="#switchToInfo" prefHeight="120.0" prefWidth="275.0" text="HOW TO PLAY">
+      <Button layoutX="448.0" layoutY="449.0" mnemonicParsing="false" onAction="#switchToInfo" prefHeight="120.0" prefWidth="275.0" text="HOW TO PLAY">
          <font>
             <Font name="Arial" size="30.0" />
          </font>
