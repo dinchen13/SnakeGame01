@@ -18,6 +18,7 @@ public class Main extends Application {
             stage.setTitle("Snake");
             stage.setScene(scene);
             stage.centerOnScreen();
+            stage.setResizable(false);
             stage.show();
 
         } catch(Exception e) {

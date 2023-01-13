@@ -16,7 +16,9 @@ public class Snake extends Circle{
     private static final int STEP =20;
     private Random random;
     private Color color =Color.FORESTGREEN;
+    private Color colorDarkmode=Color.WHITE;
     private Color colortail =Color.LIMEGREEN;
+    private Color colortailDarkmode =Color.LIGHTGRAY;
     private AnchorPane pane;
 
 
@@ -33,6 +35,9 @@ public class Snake extends Circle{
         super.setFill(Color.rgb(red, green, blue));
         if (MenuController.isSinglecolor()) {
             super.setFill(color);
+        }
+        if(MenuController.isDarkmode()) {
+            super.setFill(colorDarkmode);
         }
         this.pane = pane;
         pane.getChildren().add(this);
@@ -103,6 +108,9 @@ public class Snake extends Circle{
         food.setFill(Color.rgb(red, green, blue));
         if (MenuController.isSinglecolor()) {
             food.setFill(colortail);
+        }
+        if(MenuController.isDarkmode()){
+            food.setFill(colortailDarkmode);
         }
         tails.add(length++, food);
     }

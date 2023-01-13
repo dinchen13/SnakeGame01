@@ -11,6 +11,7 @@ public class Food extends Circle {
     private int positionX;
     private int positionY;
     private Color color =Color.DARKRED;
+    private Color colorDarkmode =Color.LIGHTPINK;
     private AnchorPane pane;
 
     public Food(double positionX, double positionY, AnchorPane pane, double radius){
@@ -18,6 +19,9 @@ public class Food extends Circle {
         this.pane = pane;
         this.radius=(int) radius;
         super.setFill(color);
+        if(MenuController.isDarkmode()){
+            super.setFill(colorDarkmode);
+        }
         pane.getChildren().add(this);
     }
     public int getPositionX() {

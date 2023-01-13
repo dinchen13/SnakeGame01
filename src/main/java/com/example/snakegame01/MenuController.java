@@ -9,6 +9,10 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Slider;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -32,6 +36,7 @@ public class MenuController {
     private static boolean singlecolor=false;
     @FXML
     public Slider backgroundColor;
+    private static boolean darkmode=false;
     @FXML
     public Slider bombs;
     @FXML
@@ -49,6 +54,8 @@ public class MenuController {
     public static void setMulti(boolean value){multiplayer=value;}
     public static boolean isSinglecolor(){return singlecolor;}
     public static void setColor(boolean value){singlecolor=value;}
+    public static boolean isDarkmode(){return darkmode;}
+    public static void setBackground(boolean value){darkmode=value;}
 
     public void switchToLoading1(ActionEvent event) throws IOException {
         Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("menu.fxml")));
@@ -101,6 +108,10 @@ public class MenuController {
         if(snakeColor.getValue()>0.5){
             singlecolor=true;
         }
+        if(backgroundColor.getValue()>0.5){
+            darkmode=true;
+        }
+
 
     }
 

@@ -15,6 +15,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
+import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import java.io.IOException;
@@ -22,6 +23,7 @@ import java.util.Random;
 
     public class App extends Application {
         //for SceneBuilder:
+
         @FXML
         private Button pause;
         @FXML
@@ -52,7 +54,9 @@ import java.util.Random;
             //hier noch ne eigene classe oder methode schreiben die das alles zurücksetzt
             MenuController.setMulti(false);
             MenuController.setColor(false);
+            MenuController.setBackground(false);
         }
+
 
         //METHODEN:
         //Snake erstellen:
@@ -167,12 +171,12 @@ import java.util.Random;
             //Bildschirm laden:
             root= new Pane();
             root = FXMLLoader.load(App.class.getResource("Game.fxml"));
-            //FXMLLoader scene01 = new FXMLLoader(HelloApplication.class.getResource("Game.fxml"));
-            //Scene scene = new Scene(scene01.load(), 680, 600);
-
-            //Bildschirm erzeugen:
-            /*root= new Pane();
-            root.setPrefSize(WIDTH, HEIGHT);*/
+            if(MenuController.isDarkmode()){
+                Rectangle rect = new Rectangle(100, 20, 560, 560);
+                Color c= Color.rgb(58, 14, 14);
+                rect.setFill(c);
+                root.getChildren().add(rect);
+            }
             score= new Text(48,85,"0");
             root.getChildren().add(score);
             random = new Random();
@@ -186,7 +190,6 @@ import java.util.Random;
                 try {
                     for (;;){
                         move();
-                        //if(twoPlayer){move(WIDTH, HEIGHT,snake2);}
 
                         Thread.sleep(speed);
                     }
@@ -195,8 +198,8 @@ import java.util.Random;
             };
             //Scene setzten:
             Scene scene = new Scene(root);
-            //Color c = Color.rgb( 230, 255, 210);
-            //scene.setFill(c);
+
+
 
             //Tasten drücken:
             scene.addEventFilter(KeyEvent.KEY_PRESSED, event -> {
