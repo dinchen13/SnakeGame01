@@ -19,8 +19,6 @@ public class Snake extends Circle{
     private Color colorDarkmode=Color.WHITE;
     private Color colortail =Color.LIMEGREEN;
     private Color colortailDarkmode =Color.LIGHTGRAY;
-    private AnchorPane pane;
-
 
 
     //Snake erstellen:
@@ -39,12 +37,14 @@ public class Snake extends Circle{
         if(MenuController.isDarkmode()) {
             super.setFill(colorDarkmode);
         }
-        this.pane = pane;
         pane.getChildren().add(this);
         this.length=0;
     }
 
-    //direction ändern
+    public void setPosition(int positionX, int positionY){
+        this.setCenterX(positionX);
+        this.setCenterY(positionY);
+    }
     public void setDirection(Direction direction) {
         this.direction = direction;
     }
@@ -57,7 +57,7 @@ public class Snake extends Circle{
     public void setLength(int length) {this.length = length;}
     public void removeTails() { //funkt nicht
         tails.clear();
-    }
+    } //funkt nicht
     public int getTailPositionX(int index){
         return (int) tails.get(index).getCenterX();
     }
@@ -67,6 +67,7 @@ public class Snake extends Circle{
     public Bounds getBoundsOfTail(int index){
         return tails.get(index).getBoundsInLocal();
     }
+
 //bewegen:
     public void step() {
         for(int i = length-1; i>=0; i--){
@@ -114,7 +115,6 @@ public class Snake extends Circle{
         }
         tails.add(length++, food);
     }
-
     public boolean eatSelf(){
         for (int i =0; i<length; i++){
             if(this.getCenterX()==tails.get(i).getCenterX()&&this.getCenterY()==tails.get(i).getCenterY()){

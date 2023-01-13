@@ -6,6 +6,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -19,6 +20,7 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import java.io.IOException;
+import java.util.Objects;
 import java.util.Random;
 
     public class App extends Application {
@@ -26,6 +28,8 @@ import java.util.Random;
 
         @FXML
         private Button pause;
+        @FXML
+        private Button reload;
         @FXML
         private Button menu;
         @FXML
@@ -45,7 +49,7 @@ import java.util.Random;
         private Random random;
         private boolean twoPlayer =false;
 
-        public void switchToScene1(ActionEvent event) throws IOException {
+        public void switchToMenu(ActionEvent event) throws IOException {
             root = FXMLLoader.load(getClass().getResource("menu.fxml"));
             stage = (Stage)((Node)event.getSource()).getScene().getWindow();
             scene = new Scene(root);
@@ -55,6 +59,21 @@ import java.util.Random;
             MenuController.setMulti(false);
             MenuController.setColor(false);
             MenuController.setBackground(false);
+        }
+
+        public void reload(ActionEvent event) throws IOException {
+            Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("Game.fxml")));
+            //stage = (Stage) start.getScene().getWindow();
+            stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            scene = new Scene(root);
+            stage.setTitle("Snake");
+            stage.setScene(scene);
+            stage.centerOnScreen();
+            stage.show();
+
+            //launch Game:
+            App Snake = new App();
+            Snake.start(stage);
         }
 
 
@@ -71,6 +90,7 @@ import java.util.Random;
             }
             speed = 200;
         }
+
 
         //Food erstellen:
         public void newFood(){
@@ -169,7 +189,6 @@ import java.util.Random;
         @Override
         public void start(Stage stage) throws IOException {
             //Bildschirm laden:
-            root= new Pane();
             root = FXMLLoader.load(App.class.getResource("Game.fxml"));
             Rectangle rect = new Rectangle(100, 20, 560, 560);
             Color c= Color.rgb(58, 14, 14);
@@ -187,6 +206,10 @@ import java.util.Random;
             newSnake();
             newFood();
 
+            //Scene setzten:
+            Scene scene = new Scene(root);
+
+
             //Was ist Runnable? ein interface,
             Runnable r = () -> {
                 try {
@@ -198,10 +221,6 @@ import java.util.Random;
                 }catch (InterruptedException ie){
                 }
             };
-            //Scene setzten:
-            Scene scene = new Scene(root);
-
-
 
             //Tasten drücken:
             scene.addEventFilter(KeyEvent.KEY_PRESSED, event -> {
@@ -227,6 +246,7 @@ import java.util.Random;
                     }
                 }
             });
+
 
             //Bildschirmeinstellungen:
             stage.setTitle("snake");

@@ -17,7 +17,7 @@
             <Font name="Verdana Pro Cond Light" size="12.0" />
          </font>
       </Button>
-      <Button fx:id="menu" layoutX="25.0" layoutY="463.0" mnemonicParsing="false" onAction="#switchToScene1" prefHeight="99.0" prefWidth="52.0" text="Menü">
+      <Button fx:id="menu" layoutX="25.0" layoutY="463.0" mnemonicParsing="false" onAction="#switchToMenu" prefHeight="99.0" prefWidth="52.0" text="Menü">
          <font>
             <Font name="Verdana Pro Cond Light" size="14.0" />
          </font>
@@ -29,7 +29,7 @@
          </font>
       </Text>
       <Label layoutX="31.0" layoutY="62.0" prefHeight="35.0" prefWidth="43.0" textAlignment="CENTER" />
-      <Button layoutX="25.0" layoutY="228.0" mnemonicParsing="false" prefHeight="99.0" prefWidth="52.0" text="Reload" textAlignment="CENTER">
+      <Button fx:id="reload" layoutX="25.0" layoutY="228.0" mnemonicParsing="false" onAction="#reload" prefHeight="99.0" prefWidth="52.0" text="Reload" textAlignment="CENTER">
          <font>
             <Font name="Verdana Pro Cond Light" size="12.0" />
          </font>

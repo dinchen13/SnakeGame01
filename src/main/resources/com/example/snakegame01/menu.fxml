@@ -31,7 +31,7 @@
             </LinearGradient>
          </fill>
       </Circle>
-      <Button fx:id="start" layoutX="448.0" layoutY="307.0" mnemonicParsing="false" onAction="#switchToScene2" prefHeight="120.0" prefWidth="275.0" text="START" textAlignment="CENTER">
+      <Button fx:id="start" layoutX="448.0" layoutY="307.0" mnemonicParsing="false" onAction="#switchToGame" prefHeight="120.0" prefWidth="275.0" text="START" textAlignment="CENTER">
          <font>
             <Font name="Arial" size="30.0" />
          </font>
@@ -41,12 +41,12 @@
             <Font name="Arial Bold" size="61.0" />
          </font>
       </Text>
-      <Button fx:id="howtoplay" layoutX="448.0" layoutY="449.0" mnemonicParsing="false" onAction="#switchToScene3" prefHeight="120.0" prefWidth="275.0" text="HOW TO PLAY">
+      <Button fx:id="howtoplay" layoutX="448.0" layoutY="449.0" mnemonicParsing="false" onAction="#switchToInfo" prefHeight="120.0" prefWidth="275.0" text="HOW TO PLAY">
          <font>
             <Font name="Arial" size="30.0" />
          </font>
       </Button>
-      <Button fx:id="quit" layoutX="448.0" layoutY="592.0" mnemonicParsing="false" onAction="#exitgame" prefHeight="120.0" prefWidth="275.0" text="QUIT">
+      <Button fx:id="quit" layoutX="448.0" layoutY="592.0" mnemonicParsing="false" onAction="#exitGame" prefHeight="120.0" prefWidth="275.0" text="QUIT">
          <font>
             <Font name="Arial Bold" size="30.0" />
          </font>

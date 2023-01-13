@@ -38,7 +38,7 @@
       <Circle fill="#86fff5" layoutX="346.0" layoutY="264.0" radius="35.0" stroke="BLACK" strokeType="INSIDE" />
       <Circle fill="#e8b5f4" layoutX="430.0" layoutY="348.0" radius="35.0" stroke="BLACK" strokeType="INSIDE" />
       <Circle fill="#82d3ff" layoutX="511.0" layoutY="348.0" radius="35.0" stroke="BLACK" strokeType="INSIDE" />
-      <Button fx:id="play" alignment="CENTER" contentDisplay="CENTER" layoutX="315.0" layoutY="406.0" mnemonicParsing="false" onAction="#switchToLoading1" prefHeight="28.0" prefWidth="132.0" text="PLAY" textAlignment="CENTER">
+      <Button fx:id="play" alignment="CENTER" contentDisplay="CENTER" layoutX="315.0" layoutY="406.0" mnemonicParsing="false" onAction="#switchToMenu" prefHeight="28.0" prefWidth="132.0" text="PLAY" textAlignment="CENTER">
          <font>
             <Font name="Franklin Gothic Book" size="14.0" />
          </font></Button>

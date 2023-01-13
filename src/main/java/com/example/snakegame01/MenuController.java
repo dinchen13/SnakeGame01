@@ -38,11 +38,13 @@ public class MenuController {
     public Slider backgroundColor;
     private static boolean darkmode=false;
     @FXML
+    public Slider walls;
+    private static boolean wallsActivated=false;
+    @FXML
     public Slider bombs;
     @FXML
     public Slider obstacles;
-    @FXML
-    public Slider walls;
+
 
     private Stage stage;
     private Scene scene;
@@ -57,7 +59,7 @@ public class MenuController {
     public static boolean isDarkmode(){return darkmode;}
     public static void setBackground(boolean value){darkmode=value;}
 
-    public void switchToLoading1(ActionEvent event) throws IOException {
+    public void switchToMenu(ActionEvent event) throws IOException {
         Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("menu.fxml")));
         stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         scene = new Scene(root);
@@ -67,7 +69,8 @@ public class MenuController {
         stage.show();
     }
 
-    public void switchToScene2(ActionEvent event) throws IOException {
+
+    public void switchToGame(ActionEvent event) throws IOException {
         Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("Game.fxml")));
         //stage = (Stage) start.getScene().getWindow();
         stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
@@ -81,7 +84,7 @@ public class MenuController {
         App Snake = new App();
         Snake.start(stage);
     }
-    public void switchToScene3(ActionEvent event) throws IOException {
+    public void switchToInfo(ActionEvent event) throws IOException {
         Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("howtoplay.fxml")));
         stage = (Stage) howtoplay.getScene().getWindow();
         stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
@@ -92,7 +95,7 @@ public class MenuController {
         stage.show();
 
     }
-    public void exitgame(ActionEvent Event) throws IOException {
+    public void exitGame(ActionEvent Event) throws IOException {
 
         Alert a = new Alert(Alert.AlertType.NONE);
         a.setAlertType(Alert.AlertType.CONFIRMATION);
