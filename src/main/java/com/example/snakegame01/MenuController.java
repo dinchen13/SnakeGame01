@@ -25,8 +25,6 @@ public class MenuController {
     @FXML
     public Button howtoplay;
     @FXML
-    public Button exit;
-    @FXML
     public Button play;
     @FXML
     public Slider playerCount;
@@ -58,6 +56,8 @@ public class MenuController {
     public static void setColor(boolean value){singlecolor=value;}
     public static boolean isDarkmode(){return darkmode;}
     public static void setBackground(boolean value){darkmode=value;}
+    public static boolean isWallsActivated(){return wallsActivated;}
+    public static void setWalls(boolean value){wallsActivated=value;}
 
     public void switchToMenu(ActionEvent event) throws IOException {
         Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("menu.fxml")));
@@ -113,6 +113,9 @@ public class MenuController {
         }
         if(backgroundColor.getValue()>0.5){
             darkmode=true;
+        }
+        if(walls.getValue()>0.5){
+            wallsActivated=true;
         }
 
 

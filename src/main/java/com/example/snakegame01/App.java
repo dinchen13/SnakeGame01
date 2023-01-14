@@ -38,6 +38,7 @@ import java.util.Random;
         private Random random;
         private boolean twoPlayer =false;
         private boolean pause =false;
+        private boolean gameOver =false;
 
         public void switchToMenu(ActionEvent event) throws IOException {
             root = FXMLLoader.load(getClass().getResource("menu.fxml"));
@@ -121,27 +122,37 @@ import java.util.Random;
         }
 
         //Bildschirm anpassen
-        private void adjustLocation(Snake snake){
+        private void handleSnakeOutsideWalls(Snake snake) {
             //Wenns ausn Bildschrim raus geht:
-            if(snake.getCenterX()>WIDTH-20){
-                snake.setCenterX(100+RADIUS+3);
-            } else if(snake.getCenterX()<100){
-                snake.setCenterX(WIDTH-20-RADIUS-3);
+            if (snake.getCenterX() > WIDTH - 20) {
+                if (!MenuController.isWallsActivated()) {
+                snake.setCenterX(100 + RADIUS + 3);}
+                else{gameOver=true;}
+            } else if (snake.getCenterX() < 100) {
+                if (!MenuController.isWallsActivated()) {
+                snake.setCenterX(WIDTH - 20 - RADIUS - 3);}
+                else{gameOver=true;}
             }
-            if(snake.getCenterY()>HEIGHT-20-RADIUS-3){
-                snake.setCenterY(20+RADIUS+3);
-            } else if(snake.getCenterY()<20){
-                snake.setCenterY(HEIGHT-20-RADIUS-3);
+            if (snake.getCenterY() > HEIGHT - 20 - RADIUS - 3) {
+                if (!MenuController.isWallsActivated()) {
+                snake.setCenterY(20 + RADIUS + 3);}
+                else{gameOver=true;}
+            } else if (snake.getCenterY() < 20) {
+                    if (!MenuController.isWallsActivated()) {
+                snake.setCenterY(HEIGHT - 20 - RADIUS - 3);}
+                else{gameOver=true;}
             }
         }
+
         //bewegen (snake)
         public void updateGame(){
             Platform.runLater(()-> {            //braucht man wenn ein anderer Thread (other than the creator) Änderungen machen könnte
                 snake.step();
+                handleSnakeOutsideWalls(snake);
                 if(twoPlayer){snake2.step();}
-                adjustLocation(snake);
-                if(twoPlayer){adjustLocation(snake2);}
-                if(gameOver()){
+                if(twoPlayer){
+                    handleSnakeOutsideWalls(snake2);}
+                if(checkIfGameOver()){
                     try {
                         root = FXMLLoader.load(App.class.getResource("Game.fxml"));
                     } catch (IOException e) {
@@ -169,10 +180,13 @@ import java.util.Random;
                 }
             });
         }
-        private boolean gameOver(){
-            if (twoPlayer){
-                if(snake.eatSelf()){return true;}
-                else if(snake2.eatSelf()){return true;}
+        private boolean checkIfGameOver(){
+            if(MenuController.isWallsActivated()&&gameOver){
+                return true;
+            }
+            else if (twoPlayer){
+                //if(snake.eatSelf()){return true;}
+                if(snake2.eatSelf()){return true;}
                 else if(snake.intersects(snake2.getBoundsInLocal())){return true;}
                 else if(snake2.intersects(snake.getBoundsInLocal())){return true;}
                 else{return false;}
