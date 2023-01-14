@@ -1,8 +1,12 @@
 package com.example.snakegame01;
 
+import javafx.geometry.Bounds;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
+import java.util.ArrayList;
+import java.util.List;
 
 import java.util.Random;
 
@@ -13,8 +17,10 @@ public class Obstacle extends Rectangle {
     private Random random = new Random();
     private int positionX;
     private int positionY;
-    private Color color =Color.BURLYWOOD;
+    private Color color =Color.BLACK;
     private Color colorDarkmode =Color.SNOW;
+    private static List<Rectangle> obstacles =new ArrayList<>();
+
 
     public Obstacle(double positionX, double positionY, AnchorPane pane, double size){
         super(positionX, positionY, size,size);
@@ -24,12 +30,19 @@ public class Obstacle extends Rectangle {
             super.setFill(colorDarkmode);
         }
         pane.getChildren().add(this);
+        obstacles.add(this);
     }
     public void setPositionX(int positionX) {
         this.setX(positionX);
     }
     public void setPositionY(int positionY) {
         this.setY(positionY);;
+    }
+    public static int getNumberOfObstacles(){
+        return obstacles.size();
+    }
+    public static Bounds getBoundsOfAllObstacles(int index){
+            return obstacles.get(index).getBoundsInLocal();
     }
 
     public void moveLocation(){

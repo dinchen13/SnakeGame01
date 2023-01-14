@@ -60,7 +60,7 @@ public class MenuController {
     public static boolean isWallsActivated(){return wallsActivated;}
     public static void setWalls(boolean value){wallsActivated=value;}
     public static boolean isObstaclesActivated() {return obstaclesActivated;}
-    public void setObstacles(boolean value) {
+    public static void setObstacles(boolean value) {
         obstaclesActivated=value;
     }
 

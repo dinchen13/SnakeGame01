@@ -32,6 +32,7 @@ import java.util.Random;
         private static final int WIDTH =680;
         private static final int HEIGHT =600;
         private static final int RADIUS =8;
+        private static final int SIZE =RADIUS*3;
         private Snake snake;
         private Snake snake2;
         private Food food;
@@ -53,6 +54,9 @@ import java.util.Random;
             MenuController.setMulti(false);
             MenuController.setColor(false);
             MenuController.setBackground(false);
+            MenuController.setWalls(false);
+            MenuController.setObstacles(false);
+            gameOver=false;
         }
 
         public void reload(ActionEvent event) throws IOException {
@@ -64,6 +68,7 @@ import java.util.Random;
             stage.setScene(scene);
             stage.centerOnScreen();
             stage.show();
+            gameOver=false;
 
             //launch Game:
             App Snake = new App();
@@ -96,16 +101,17 @@ import java.util.Random;
             food = new Food(random.nextInt(560-RADIUS*2)+100+RADIUS,random.nextInt(560-RADIUS*2)+20+RADIUS, (AnchorPane) root,RADIUS);
             if(isInsideSnake(snake,food)){moveFoodAway();}
             if(twoPlayer&& isInsideSnake(snake2,food)){moveFoodAway();}
+            System.out.println("make Food");
         }
         private void moveFoodAway(){
             food.moveLocation();
             if(twoPlayer){
-                while (isInsideSnake(snake,food)|| isInsideSnake(snake2,food)){
+                while (isInsideSnake(snake,food)|| isInsideSnake(snake2,food)||isInsideObstacle()){
                     food.moveLocation();
                 }
             }
             else {
-                while (isInsideSnake(snake,food)) {
+                while (isInsideSnake(snake,food)||isInsideObstacle()) {
                     food.moveLocation();
                 }
             }
@@ -113,20 +119,21 @@ import java.util.Random;
         //Hindernisse einbauen
         public void newObstacle(){
             if(MenuController.isObstaclesActivated()){
-            obstacle = new Obstacle(random.nextInt(560-RADIUS*2*2)+100+RADIUS*2,random.nextInt(560-RADIUS*2*2)+20+RADIUS*2, (AnchorPane) root,RADIUS*2);
+            obstacle = new Obstacle(random.nextInt(560-SIZE*2)+100+SIZE,random.nextInt(560-SIZE*2)+20+SIZE, (AnchorPane) root,SIZE);
             if(isInsideSnake(snake,obstacle)){moveObstacleAway();}
             if(twoPlayer&&isInsideSnake(snake2,obstacle)){moveObstacleAway();}
+                System.out.println("make Wall");
             }
         }
         private void moveObstacleAway(){
             obstacle.moveLocation();
             if(twoPlayer){
-                while (isInsideSnake(snake,obstacle)|| isInsideSnake(snake2,obstacle)){
+                while (isInsideSnake(snake,obstacle)|| isInsideSnake(snake2,obstacle)||isInsideFood()){
                     obstacle.moveLocation();
                 }
             }
             else {
-                while (isInsideSnake(snake,obstacle)) {
+                while (isInsideSnake(snake,obstacle)||isInsideFood()) {
                     obstacle.moveLocation();
                 }
             }
@@ -134,9 +141,25 @@ import java.util.Random;
         private boolean isInsideSnake(Snake snake, Shape shape){
             for (int i = 0; i < snake.getLength(); i++) {
                 if((shape.intersects(snake.getBoundsInLocal()))||(shape.intersects(snake.getBoundsOfTail(i)))){
-                    System.out.println("moveeee");
+                    System.out.println("moveeee things");
                     return true;
                 }
+            }
+            return false;
+        }
+        private boolean isInsideObstacle(){
+            for (int i = 0; i < Obstacle.getNumberOfObstacles(); i++) {
+                if (food.intersects(Obstacle.getBoundsOfAllObstacles(i))) {
+                System.out.println("moveeee things 2");
+                return true;
+                }
+            }
+            return false;
+        }
+        private boolean isInsideFood(){
+            if (obstacle.intersects(food.getBoundsInLocal())) {
+                System.out.println("moveeee things 3");
+                return true;
             }
             return false;
         }
@@ -164,20 +187,36 @@ import java.util.Random;
         }
         private boolean checkIfGameOver(){
             if(MenuController.isWallsActivated()&&gameOver){
+                System.out.println("die 1");
                 return true;
             }
-            //else if((MenuController.isObstaclesActivated())&&(snake.intersects(obstacle.getBoundsInLocal()))){return true;}
-            else if (twoPlayer){
-                //if((MenuController.isObstaclesActivated())&&(snake2.intersects(obstacle.getBoundsInLocal()))){return true;}
-                if(snake2.eatSelf()){return true;}
-                else if(snake.intersects(snake2.getBoundsInLocal())){return true;}
-                else if(snake2.intersects(snake.getBoundsInLocal())){return true;}
-                else{return false;}
-           }
-            else {
-                return snake.eatSelf();
+            if((MenuController.isObstaclesActivated())&&snake.getLength()>=2) {
+                for (int i = 0; i < Obstacle.getNumberOfObstacles(); i++) {
+                    if (snake.intersects(Obstacle.getBoundsOfAllObstacles(i))) {
+                        System.out.println("die 2");
+                        return true;
+                    }
+                }
             }
+            if (twoPlayer){
+                if((MenuController.isObstaclesActivated())&&snake2.getLength()>=2) {
+                    for (int i = 0; i < Obstacle.getNumberOfObstacles(); i++) {
+                        if (snake2.intersects(Obstacle.getBoundsOfAllObstacles(i))) {
+                            System.out.println("die 3");
+                            return true;
+                        }
+                    }
+                }
+                if(snake2.eatSelf()){System.out.println("die 4");return true;}
+                if(snake.intersects(snake2.getBoundsInLocal())){System.out.println("die 5");return true;}
+                if(snake2.intersects(snake.getBoundsInLocal())){System.out.println("die 6");return true;}
+            }
+            if (snake.eatSelf()) {                      //just for debugging
+                System.out.println("die 7");
+            }
+            return snake.eatSelf();
         }
+
         public void updateGame(){
             Platform.runLater(()-> {            //braucht man wenn ein anderer Thread (other than the creator) Änderungen machen könnte
                 snake.step();
@@ -204,7 +243,6 @@ import java.util.Random;
                     score.setText(""+snake.getLengthString());
                     newFood();
                     if(snake.getLength()%2==0){         //Make walls
-                        System.out.println("make wall");
                         newObstacle();
                     }
                 }
@@ -216,7 +254,6 @@ import java.util.Random;
                     score.setText(""+snake2.getLengthString());
                     newFood();
                     if(snake2.getLength()%2==0){         //Make walls
-                        System.out.println("make wall2");
                         newObstacle();
                     }
                 }
