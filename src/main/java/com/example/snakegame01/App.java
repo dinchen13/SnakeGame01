@@ -14,6 +14,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.shape.Shape;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import java.io.IOException;
@@ -34,6 +35,7 @@ import java.util.Random;
         private Snake snake;
         private Snake snake2;
         private Food food;
+        private Obstacle obstacle;
         private int speed;
         private Random random;
         private boolean twoPlayer =false;
@@ -89,38 +91,55 @@ import java.util.Random;
             }
             speed = 200;
         }
-
-
         //Food erstellen:
         public void newFood(){
-            food = new Food(random.nextInt(460)+100+RADIUS,random.nextInt(460)+20+RADIUS, (AnchorPane) root,RADIUS);
-            if(FoodInsideSnake(snake)){moveFoodAway();}
-            if(twoPlayer&&FoodInsideSnake(snake2)){moveFoodAway();}
+            food = new Food(random.nextInt(560-RADIUS*2)+100+RADIUS,random.nextInt(560-RADIUS*2)+20+RADIUS, (AnchorPane) root,RADIUS);
+            if(isInsideSnake(snake,food)){moveFoodAway();}
+            if(twoPlayer&& isInsideSnake(snake2,food)){moveFoodAway();}
         }
-        //adjust food
         private void moveFoodAway(){
-            food.moveFood();
+            food.moveLocation();
             if(twoPlayer){
-                while (FoodInsideSnake(snake)|| FoodInsideSnake(snake2)){
-                    food.moveFood();
+                while (isInsideSnake(snake,food)|| isInsideSnake(snake2,food)){
+                    food.moveLocation();
                 }
             }
             else {
-                while (FoodInsideSnake(snake)) {
-                    food.moveFood();
+                while (isInsideSnake(snake,food)) {
+                    food.moveLocation();
                 }
             }
         }
-        private boolean FoodInsideSnake(Snake snake){
+        //Hindernisse einbauen
+        public void newObstacle(){
+            if(MenuController.isObstaclesActivated()){
+            obstacle = new Obstacle(random.nextInt(560-RADIUS*2*2)+100+RADIUS*2,random.nextInt(560-RADIUS*2*2)+20+RADIUS*2, (AnchorPane) root,RADIUS*2);
+            if(isInsideSnake(snake,obstacle)){moveObstacleAway();}
+            if(twoPlayer&&isInsideSnake(snake2,obstacle)){moveObstacleAway();}
+            }
+        }
+        private void moveObstacleAway(){
+            obstacle.moveLocation();
+            if(twoPlayer){
+                while (isInsideSnake(snake,obstacle)|| isInsideSnake(snake2,obstacle)){
+                    obstacle.moveLocation();
+                }
+            }
+            else {
+                while (isInsideSnake(snake,obstacle)) {
+                    obstacle.moveLocation();
+                }
+            }
+        }
+        private boolean isInsideSnake(Snake snake, Shape shape){
             for (int i = 0; i < snake.getLength(); i++) {
-                if((food.intersects(snake.getBoundsInLocal()))||(food.intersects(snake.getBoundsOfTail(i)))){
-                    System.out.println("moveeee fooood");
+                if((shape.intersects(snake.getBoundsInLocal()))||(shape.intersects(snake.getBoundsOfTail(i)))){
+                    System.out.println("moveeee");
                     return true;
                 }
             }
             return false;
         }
-
         //Bildschirm anpassen
         private void handleSnakeOutsideWalls(Snake snake) {
             //Wenns ausn Bildschrim raus geht:
@@ -143,8 +162,22 @@ import java.util.Random;
                 else{gameOver=true;}
             }
         }
-
-        //bewegen (snake)
+        private boolean checkIfGameOver(){
+            if(MenuController.isWallsActivated()&&gameOver){
+                return true;
+            }
+            //else if((MenuController.isObstaclesActivated())&&(snake.intersects(obstacle.getBoundsInLocal()))){return true;}
+            else if (twoPlayer){
+                //if((MenuController.isObstaclesActivated())&&(snake2.intersects(obstacle.getBoundsInLocal()))){return true;}
+                if(snake2.eatSelf()){return true;}
+                else if(snake.intersects(snake2.getBoundsInLocal())){return true;}
+                else if(snake2.intersects(snake.getBoundsInLocal())){return true;}
+                else{return false;}
+           }
+            else {
+                return snake.eatSelf();
+            }
+        }
         public void updateGame(){
             Platform.runLater(()-> {            //braucht man wenn ein anderer Thread (other than the creator) Änderungen machen könnte
                 snake.step();
@@ -167,8 +200,13 @@ import java.util.Random;
                     if (snake.getLength()<=10){speed=speed-7;}
                     else if (snake.getLength()<=20){speed=speed-4;}
                     else if (snake.getLength()>20){speed=speed-1;}
+                    else if (snake.getLength()>30){}
                     score.setText(""+snake.getLengthString());
                     newFood();
+                    if(snake.getLength()%2==0){         //Make walls
+                        System.out.println("make wall");
+                        newObstacle();
+                    }
                 }
                 else if (twoPlayer&&(snake2.hitFood(food))){
                     snake2.eat(food);
@@ -177,25 +215,13 @@ import java.util.Random;
                     else if (snake2.getLength()>20){speed=speed-1;}
                     score.setText(""+snake2.getLengthString());
                     newFood();
+                    if(snake2.getLength()%2==0){         //Make walls
+                        System.out.println("make wall2");
+                        newObstacle();
+                    }
                 }
             });
         }
-        private boolean checkIfGameOver(){
-            if(MenuController.isWallsActivated()&&gameOver){
-                return true;
-            }
-            else if (twoPlayer){
-                //if(snake.eatSelf()){return true;}
-                if(snake2.eatSelf()){return true;}
-                else if(snake.intersects(snake2.getBoundsInLocal())){return true;}
-                else if(snake2.intersects(snake.getBoundsInLocal())){return true;}
-                else{return false;}
-           }
-            else {
-                return snake.eatSelf();
-            }
-        }
-
         //PROGRAMM:
         @Override
         public void start(Stage stage) throws IOException {
@@ -219,7 +245,6 @@ import java.util.Random;
 
             //Scene setzten:
             Scene scene = new Scene(root);
-
 
             //Was ist Runnable? ein interface,
             Runnable r = () -> {

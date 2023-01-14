@@ -114,6 +114,7 @@ public class Snake extends Circle{
             food.setFill(colortailDarkmode);
         }
         tails.add(length++, food);
+        System.out.println("length");
     }
     public boolean eatSelf(){
         for (int i =0; i<length; i++){

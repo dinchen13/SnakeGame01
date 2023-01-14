@@ -42,6 +42,7 @@ public class MenuController {
     public Slider bombs;
     @FXML
     public Slider obstacles;
+    private static boolean obstaclesActivated=false;
 
 
     private Stage stage;
@@ -58,6 +59,10 @@ public class MenuController {
     public static void setBackground(boolean value){darkmode=value;}
     public static boolean isWallsActivated(){return wallsActivated;}
     public static void setWalls(boolean value){wallsActivated=value;}
+    public static boolean isObstaclesActivated() {return obstaclesActivated;}
+    public void setObstacles(boolean value) {
+        obstaclesActivated=value;
+    }
 
     public void switchToMenu(ActionEvent event) throws IOException {
         Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("menu.fxml")));
@@ -116,6 +121,9 @@ public class MenuController {
         }
         if(walls.getValue()>0.5){
             wallsActivated=true;
+        }
+        if(obstacles.getValue()>0.5){
+            obstaclesActivated=true;
         }
 
 
