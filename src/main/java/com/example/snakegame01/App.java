@@ -21,7 +21,9 @@ import java.io.IOException;
 import java.util.Objects;
 import java.util.Random;
 
-    public class App extends Application {
+import static com.example.snakegame01.Sound.ifEats;
+
+public class App extends Application {
 
         @FXML
         private Text score;
@@ -235,6 +237,11 @@ import java.util.Random;
                     score.setText("Game Over");
                     newSnake();
                     newFood();
+                    try {
+                        ifEats();
+                    } catch (Exception e) {
+                        throw new RuntimeException(e);
+                    }
                 }
                 else if(snake.hitFood(food)){
                     snake.eat(food);
