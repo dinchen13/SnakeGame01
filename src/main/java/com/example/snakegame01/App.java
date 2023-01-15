@@ -21,7 +21,6 @@ import java.io.IOException;
 import java.util.Objects;
 import java.util.Random;
 
-import static com.example.snakegame01.Sound.ifEats;
 
 public class App extends Application {
 
@@ -238,7 +237,6 @@ public class App extends Application {
                     newSnake();
                     newFood();
                     try {
-                        ifEats();
                     } catch (Exception e) {
                         throw new RuntimeException(e);
                     }
