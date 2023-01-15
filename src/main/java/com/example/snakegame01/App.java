@@ -57,6 +57,7 @@ import java.util.Random;
             MenuController.setWalls(false);
             MenuController.setObstacles(false);
             gameOver=false;
+            Obstacle.deleteAll();
         }
 
         public void reload(ActionEvent event) throws IOException {
@@ -69,13 +70,14 @@ import java.util.Random;
             stage.centerOnScreen();
             stage.show();
             gameOver=false;
+            Obstacle.deleteAll();
 
             //launch Game:
             App Snake = new App();
             Snake.start(stage);
         }
 
-        public void MakePause(){
+        public void makePause(){
             if (!pause){pause=true;}
             else if (pause){pause=false;}
             System.out.println(pause);
@@ -149,7 +151,7 @@ import java.util.Random;
         }
         private boolean isInsideObstacle(){
             for (int i = 0; i < Obstacle.getNumberOfObstacles(); i++) {
-                if (food.intersects(Obstacle.getBoundsOfAllObstacles(i))) {
+                if (food.intersects(Obstacle.getBoundsOfObstacle(i))) {
                 System.out.println("moveeee things 2");
                 return true;
                 }
@@ -168,20 +170,20 @@ import java.util.Random;
             //Wenns ausn Bildschrim raus geht:
             if (snake.getCenterX() > WIDTH - 20) {
                 if (!MenuController.isWallsActivated()) {
-                snake.setCenterX(100 + RADIUS + 3);}
+                    snake.setCenterX(100 + RADIUS + 3);}
                 else{gameOver=true;}
             } else if (snake.getCenterX() < 100) {
                 if (!MenuController.isWallsActivated()) {
-                snake.setCenterX(WIDTH - 20 - RADIUS - 3);}
+                    snake.setCenterX(WIDTH - 20 - RADIUS - 3);}
                 else{gameOver=true;}
             }
             if (snake.getCenterY() > HEIGHT - 20 - RADIUS - 3) {
                 if (!MenuController.isWallsActivated()) {
-                snake.setCenterY(20 + RADIUS + 3);}
+                    snake.setCenterY(20 + RADIUS + 3);}
                 else{gameOver=true;}
             } else if (snake.getCenterY() < 20) {
-                    if (!MenuController.isWallsActivated()) {
-                snake.setCenterY(HEIGHT - 20 - RADIUS - 3);}
+                if (!MenuController.isWallsActivated()) {
+                    snake.setCenterY(HEIGHT - 20 - RADIUS - 3);}
                 else{gameOver=true;}
             }
         }
@@ -192,7 +194,7 @@ import java.util.Random;
             }
             if((MenuController.isObstaclesActivated())&&snake.getLength()>=2) {
                 for (int i = 0; i < Obstacle.getNumberOfObstacles(); i++) {
-                    if (snake.intersects(Obstacle.getBoundsOfAllObstacles(i))) {
+                    if (snake.intersects(Obstacle.getBoundsOfObstacle(i))) {
                         System.out.println("die 2");
                         return true;
                     }
@@ -201,7 +203,7 @@ import java.util.Random;
             if (twoPlayer){
                 if((MenuController.isObstaclesActivated())&&snake2.getLength()>=2) {
                     for (int i = 0; i < Obstacle.getNumberOfObstacles(); i++) {
-                        if (snake2.intersects(Obstacle.getBoundsOfAllObstacles(i))) {
+                        if (snake2.intersects(Obstacle.getBoundsOfObstacle(i))) {
                             System.out.println("die 3");
                             return true;
                         }

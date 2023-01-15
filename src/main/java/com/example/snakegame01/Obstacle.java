@@ -3,7 +3,6 @@ package com.example.snakegame01;
 import javafx.geometry.Bounds;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 import java.util.ArrayList;
 import java.util.List;
@@ -41,7 +40,7 @@ public class Obstacle extends Rectangle {
     public static int getNumberOfObstacles(){
         return obstacles.size();
     }
-    public static Bounds getBoundsOfAllObstacles(int index){
+    public static Bounds getBoundsOfObstacle(int index){
             return obstacles.get(index).getBoundsInLocal();
     }
 
@@ -54,9 +53,9 @@ public class Obstacle extends Rectangle {
         setPositionX(x);
         setPositionY(y);
     }
-
-
-
+    public static void deleteAll(){
+        obstacles.clear();
+    }
 
 
 }
