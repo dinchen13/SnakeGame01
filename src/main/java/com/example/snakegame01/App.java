@@ -22,6 +22,7 @@ import java.util.Objects;
 import java.util.Random;
 
 
+
 public class App extends Application {
 
         @FXML
@@ -237,6 +238,7 @@ public class App extends Application {
                     newSnake();
                     newFood();
                     try {
+                        Sound.ifEats();
                     } catch (Exception e) {
                         throw new RuntimeException(e);
                     }

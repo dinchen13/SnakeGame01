@@ -18,6 +18,8 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.util.Objects;
 
+import static com.example.snakegame01.Sound.playSound;
+
 public class MenuController {
 
     @FXML
@@ -64,7 +66,7 @@ public class MenuController {
         obstaclesActivated=value;
     }
 
-    public void switchToMenu(ActionEvent event) throws IOException {
+    public void switchToMenu(ActionEvent event) throws Exception {
         Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("menu.fxml")));
         stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         scene = new Scene(root);
@@ -72,10 +74,11 @@ public class MenuController {
         stage.setScene(scene);
         stage.centerOnScreen();
         stage.show();
+        Sound.playSound();
     }
 
 
-    public void switchToGame(ActionEvent event) throws IOException {
+    public void switchToGame(ActionEvent event) throws Exception {
         Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("Game.fxml")));
         //stage = (Stage) start.getScene().getWindow();
         stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
@@ -84,12 +87,12 @@ public class MenuController {
         stage.setScene(scene);
         stage.centerOnScreen();
         stage.show();
-
         //launch Game:
         App Snake = new App();
         Snake.start(stage);
+
     }
-    public void switchToInfo(ActionEvent event) throws IOException {
+    public void switchToInfo(ActionEvent event) throws Exception {
         Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("howtoplay.fxml")));
         //stage = (Stage) howtoplay.getScene().getWindow();
         stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
