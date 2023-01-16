@@ -78,7 +78,7 @@ public class MenuController {
     }
 
 
-    public void switchToGame(ActionEvent event) throws Exception {
+    public void switchToGame(ActionEvent event) throws IOException {
         Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("Game.fxml")));
         //stage = (Stage) start.getScene().getWindow();
         stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
@@ -87,12 +87,12 @@ public class MenuController {
         stage.setScene(scene);
         stage.centerOnScreen();
         stage.show();
+
         //launch Game:
         App Snake = new App();
         Snake.start(stage);
-
     }
-    public void switchToInfo(ActionEvent event) throws Exception {
+    public void switchToInfo(ActionEvent event) throws IOException {
         Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("howtoplay.fxml")));
         //stage = (Stage) howtoplay.getScene().getWindow();
         stage = (Stage) ((Node) event.getSource()).getScene().getWindow();

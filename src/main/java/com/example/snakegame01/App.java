@@ -91,8 +91,8 @@ public class App extends Application {
         //Snake erstellen:
         private void newSnake(){
             if(twoPlayer) {
-                snake=new Snake(580/2+100 - 200, 580/2+200, (AnchorPane) root, RADIUS+3);
-                snake2 = new Snake(580/2+100+200, 580/2-200, (AnchorPane) root, RADIUS + 3);
+                snake = new Snake(580/2+100+200, 580/2-200, (AnchorPane) root, RADIUS + 3);
+                snake2=new Snake(580/2+100 - 200, 580/2+200, (AnchorPane) root, RADIUS+3);
                 snake2.setDirection(Direction.DOWN);
             }
             else{
