@@ -74,7 +74,7 @@ public class MenuController {
         stage.setScene(scene);
         stage.centerOnScreen();
         stage.show();
-        Sound.playSound();
+        //Sound.playSound();
     }
 
 

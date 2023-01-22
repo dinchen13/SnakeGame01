@@ -3,6 +3,7 @@ package com.example.snakegame01;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -39,6 +40,7 @@ public class App extends Application {
         private Snake snake2;
         private Food food;
         private Obstacle obstacle;
+        private Bomb bomb;
         private int speed;
         private Random random;
         private boolean twoPlayer =false;
@@ -107,15 +109,15 @@ public class App extends Application {
             if(twoPlayer&& isInsideSnake(snake2,food)){moveFoodAway();}
             System.out.println("make Food");
         }
-        private void moveFoodAway(){
+        private void moveFoodAway(){   //interface machen oder abstract klasse damit ich nur eine methode brauch und .moveLocation benutzen kann
             food.moveLocation();
             if(twoPlayer){
-                while (isInsideSnake(snake,food)|| isInsideSnake(snake2,food)||isInsideObstacle()){
+                while (isInsideSnake(snake,food)|| isInsideSnake(snake2,food)||isInsideObstacle(food)){
                     food.moveLocation();
                 }
             }
             else {
-                while (isInsideSnake(snake,food)||isInsideObstacle()) {
+                while (isInsideSnake(snake,food)||isInsideObstacle(food)) {
                     food.moveLocation();
                 }
             }
@@ -132,38 +134,67 @@ public class App extends Application {
         private void moveObstacleAway(){
             obstacle.moveLocation();
             if(twoPlayer){
-                while (isInsideSnake(snake,obstacle)|| isInsideSnake(snake2,obstacle)||isInsideFood()){
+                while (isInsideSnake(snake,obstacle)|| isInsideSnake(snake2,obstacle)||isInsideFood(obstacle)){
                     obstacle.moveLocation();
                 }
             }
             else {
-                while (isInsideSnake(snake,obstacle)||isInsideFood()) {
+                while (isInsideSnake(snake,obstacle)||isInsideFood(obstacle)) {
                     obstacle.moveLocation();
+                }
+            }
+        }
+        //make Bomb
+        public void newBomb(){
+            bomb = new Bomb(random.nextInt(560-RADIUS*2)+100+RADIUS,random.nextInt(560-RADIUS*2)+20+RADIUS, (AnchorPane) root,RADIUS);
+            if(isInsideSnake(snake,bomb)){moveBombAway();}
+            if(twoPlayer&& isInsideSnake(snake2,bomb)){moveBombAway();}
+            System.out.println("make Food");
+        }
+        private void moveBombAway(){
+            bomb.moveLocation();
+            if(twoPlayer){
+                while (isInsideSnake(snake,bomb)|| isInsideSnake(snake2,bomb)||isInsideFood(bomb)){
+                    bomb.moveLocation();
+                }
+            }
+            else {
+                while (isInsideSnake(snake,bomb)||isInsideFood(bomb)) {
+                    bomb.moveLocation();
                 }
             }
         }
         private boolean isInsideSnake(Snake snake, Shape shape){
             for (int i = 0; i < snake.getLength(); i++) {
                 if((shape.intersects(snake.getBoundsInLocal()))||(shape.intersects(snake.getBoundsOfTail(i)))){
-                    System.out.println("moveeee things");
+                    System.out.println("moveeee things 0");
                     return true;
                 }
             }
             return false;
         }
-        private boolean isInsideObstacle(){
+        private boolean isInsideFood(Shape shape){
+            if (shape.intersects(food.getBoundsInLocal())) {
+                System.out.println("moveeee things 1");
+                return true;
+            }
+            return false;
+        }
+        private boolean isInsideObstacle(Shape shape){
             for (int i = 0; i < Obstacle.getNumberOfObstacles(); i++) {
-                if (food.intersects(Obstacle.getBoundsOfObstacle(i))) {
+                if (shape.intersects(Obstacle.getBoundsOfObstacle(i))) {
                 System.out.println("moveeee things 2");
                 return true;
                 }
             }
             return false;
         }
-        private boolean isInsideFood(){
-            if (obstacle.intersects(food.getBoundsInLocal())) {
-                System.out.println("moveeee things 3");
-                return true;
+        private boolean isInsideBomb(Shape shape){
+            for (int i = 0; i < Bomb.getNumberOfObstacles(); i++) {
+                if (shape.intersects(Bomb.getBoundsOfObstacle(i))) {
+                    System.out.println("moveeee things 3");
+                    return true;
+                }
             }
             return false;
         }
@@ -221,7 +252,7 @@ public class App extends Application {
             return snake.eatSelf();
         }
 
-        public void updateGame(){
+        public void updateGame() {
             Platform.runLater(()-> {            //braucht man wenn ein anderer Thread (other than the creator) Änderungen machen könnte
                 snake.step();
                 handleSnakeOutsideWalls(snake);
@@ -229,19 +260,41 @@ public class App extends Application {
                 if(twoPlayer){
                     handleSnakeOutsideWalls(snake2);}
                 if(checkIfGameOver()){
+                    /*
+                    EventHandler<ActionEvent> customEvent = e -> {
+
+                            (t -> t.fireEvent(new ActionEvent()));
+
+                    };
+
+                    FXMLLoader loader = new FXMLLoader(getClass().getResource("Game.fxml"));
                     try {
-                        root = FXMLLoader.load(App.class.getResource("Game.fxml"));
-                    } catch (IOException e) {
-                        throw new RuntimeException(e);
+                        root = loader.load();
+                    } catch (IOException ex) {
+                        throw new RuntimeException(ex);
                     }
-                    score.setText("Game Over");
-                    newSnake();
-                    newFood();
-                    try {
-                        Sound.ifEats();
-                    } catch (Exception e) {
-                        throw new RuntimeException(e);
-                    }
+                    scene = new Scene(root);
+                    stage = (Stage) ((Node) e.getSource()).getScene().getWindow();
+                    stage.setResizable(false);
+                    stage.centerOnScreen();
+                    stage.setScene(scene);
+                    stage.show();
+                    */
+
+
+                               /* try {
+                                    root = FXMLLoader.load(App.class.getResource("Game.fxml"));
+                                } catch (IOException e) {
+                                    throw new RuntimeException(e);
+                                }
+                                score.setText("Game Over");
+                                newSnake();
+                                newFood();
+                                try {
+                                    Sound.ifEats();
+                                } catch (Exception e) {
+                                    throw new RuntimeException(e);
+                                }*/
                 }
                 else if(snake.hitFood(food)){
                     snake.eat(food);
@@ -251,6 +304,7 @@ public class App extends Application {
                     else if (snake.getLength()>30){}
                     score.setText(""+snake.getLengthString());
                     newFood();
+                    newBomb();
                     if(snake.getLength()%2==0){         //Make walls
                         newObstacle();
                     }
@@ -288,6 +342,7 @@ public class App extends Application {
             twoPlayer=MenuController.isMultiplayer();
             newSnake();
             newFood();
+            newBomb();
 
             //Scene setzten:
             Scene scene = new Scene(root);

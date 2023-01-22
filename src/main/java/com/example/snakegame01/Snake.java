@@ -93,6 +93,15 @@ public class Snake extends Circle{
     public boolean hitFood(Circle food){
         return food.intersects(this.getBoundsInLocal());
     }
+    public boolean hitBomb(Circle bomb){
+        for (int i = 0; i < Bomb.getNumberOfObstacles(); i++) {
+            if (this.intersects(Bomb.getBoundsOfObstacle(i))) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     private Circle endTail(){
         if (length==0){
             return this;
@@ -116,6 +125,11 @@ public class Snake extends Circle{
         tails.add(length++, food);
         System.out.println("length");
     }
+
+    public void decrease(Circle bomb){
+        tails.remove(getLength()-1);
+    }
+
     public boolean eatSelf(){
         for (int i =0; i<length; i++){
             if(this.getCenterX()==tails.get(i).getCenterX()&&this.getCenterY()==tails.get(i).getCenterY()){
