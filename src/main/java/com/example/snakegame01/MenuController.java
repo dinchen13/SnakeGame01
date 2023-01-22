@@ -42,18 +42,14 @@ public class MenuController {
     private static boolean wallsActivated=false;
     @FXML
     public Slider bombs;
+    private static boolean bombsActivated=false;
     @FXML
     public Slider obstacles;
     private static boolean obstaclesActivated=false;
-
-
     private Stage stage;
     private Scene scene;
-    private Parent root;
 
-    public static boolean isMultiplayer (){
-        return multiplayer;
-    }
+    public static boolean isMultiplayer (){return multiplayer;}
     public static void setMulti(boolean value){multiplayer=value;}
     public static boolean isSinglecolor(){return singlecolor;}
     public static void setColor(boolean value){singlecolor=value;}
@@ -62,9 +58,9 @@ public class MenuController {
     public static boolean isWallsActivated(){return wallsActivated;}
     public static void setWalls(boolean value){wallsActivated=value;}
     public static boolean isObstaclesActivated() {return obstaclesActivated;}
-    public static void setObstacles(boolean value) {
-        obstaclesActivated=value;
-    }
+    public static void setObstacles(boolean value) {obstaclesActivated=value;}
+    public static boolean isBombsActivated() {return bombsActivated;}
+    public static void setBombs(boolean value) {bombsActivated=value;}
 
     public void switchToMenu(ActionEvent event) throws Exception {
         Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("menu.fxml")));
@@ -74,7 +70,7 @@ public class MenuController {
         stage.setScene(scene);
         stage.centerOnScreen();
         stage.show();
-        Sound.playSound();
+        //Sound.playSound();
     }
 
 
@@ -127,6 +123,9 @@ public class MenuController {
         }
         if(obstacles.getValue()>0.5){
             obstaclesActivated=true;
+        }
+        if(bombs.getValue()>0.5){
+            bombsActivated=true;
         }
 
 

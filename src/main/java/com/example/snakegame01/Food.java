@@ -2,7 +2,6 @@ package com.example.snakegame01;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
-
 import java.util.Random;
 public class Food extends Circle {
     private int radius;
@@ -31,9 +30,7 @@ public class Food extends Circle {
     public void setPositionX(int positionX) {
         this.setCenterX(positionX);
     }
-    public void setPositionY(int positionY) {
-        this.setCenterY(positionY);;
-    }
+    public void setPositionY(int positionY) {this.setCenterY(positionY);}
     public void moveLocation(){
         randomLocationFood();
     }
