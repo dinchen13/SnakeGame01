@@ -60,6 +60,7 @@ public class App extends Application {
             MenuController.setBackground(false);
             MenuController.setWalls(false);
             MenuController.setObstacles(false);
+            MenuController.setBombs(false);
             gameOver=false;
             Obstacle.deleteAll();
             Bomb.deleteAll();
@@ -114,12 +115,12 @@ public class App extends Application {
         private void moveFoodAway(){   //interface machen oder abstract klasse damit ich nur eine methode brauch und .moveLocation benutzen kann
             food.moveLocation();
             if(twoPlayer){
-                while (isInsideSnake(snake,food)|| isInsideSnake(snake2,food)||isInsideObstacle(food)){
+                while (isInsideSnake(snake,food)|| isInsideSnake(snake2,food)||isInsideObstacle(food)||isInsideBomb(food)){
                     food.moveLocation();
                 }
             }
             else {
-                while (isInsideSnake(snake,food)||isInsideObstacle(food)) {
+                while (isInsideSnake(snake,food)||isInsideObstacle(food)||isInsideBomb(food)) {
                     food.moveLocation();
                 }
             }
@@ -136,22 +137,28 @@ public class App extends Application {
         private void moveObstacleAway(){
             obstacle.moveLocation();
             if(twoPlayer){
-                while (isInsideSnake(snake,obstacle)|| isInsideSnake(snake2,obstacle)||isInsideFood(obstacle)){
+                while (isInsideSnake(snake,obstacle)|| isInsideSnake(snake2,obstacle)||isInsideFood(obstacle)||isInsideBomb(obstacle)){
                     obstacle.moveLocation();
                 }
             }
             else {
-                while (isInsideSnake(snake,obstacle)||isInsideFood(obstacle)) {
+                while (isInsideSnake(snake,obstacle)||isInsideFood(obstacle)||isInsideBomb(obstacle)) {
                     obstacle.moveLocation();
                 }
             }
         }
         //make Bomb
         public void newBomb(){
-            bomb = new Bomb(random.nextInt(560-RADIUS*2)+100+RADIUS,random.nextInt(560-RADIUS*2)+20+RADIUS, (AnchorPane) root,RADIUS);
-            if(isInsideSnake(snake,bomb)){moveBombAway();}
-            if(twoPlayer&& isInsideSnake(snake2,bomb)){moveBombAway();}
-            System.out.println("make Food");
+            if(MenuController.isBombsActivated()) {
+                bomb = new Bomb(random.nextInt(560 - RADIUS * 2) + 100 + RADIUS, random.nextInt(560 - RADIUS * 2) + 20 + RADIUS, (AnchorPane) root, RADIUS);
+                if (isInsideSnake(snake, bomb)) {
+                    moveBombAway();
+                }
+                if (twoPlayer && isInsideSnake(snake2, bomb)) {
+                    moveBombAway();
+                }
+                System.out.println("make Bomb");
+            }
         }
         private void moveBombAway(){
             bomb.moveLocation();
