@@ -52,6 +52,10 @@ public class Bomb extends Circle {
         setPositionX(x);
         setPositionY(y);
     }
+    public static void deleteBomb(int index, AnchorPane pane){
+        pane.getChildren().remove(index);
+        bombs.remove(index);
+    }
     public static void deleteAll(){
         bombs.clear();
     }

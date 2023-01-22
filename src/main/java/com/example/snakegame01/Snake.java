@@ -11,7 +11,7 @@ import java.util.Random;
 public class Snake extends Circle{
 
     private List<Circle> tails;
-    private int length=0;
+    private int length;
     private Direction direction;
     private static final int STEP =20;
     private Random random;
@@ -40,7 +40,7 @@ public class Snake extends Circle{
         pane.getChildren().add(this);
         this.length=0;
     }
-
+    //+++++++++++++++++++++++++++ getter & setters +++++++++++++++++++++++++++++
     public void setPosition(int positionX, int positionY){
         this.setCenterX(positionX);
         this.setCenterY(positionY);
@@ -53,22 +53,11 @@ public class Snake extends Circle{
     }
     //Länge zurückgeben
     public String getLengthString() {return String.valueOf(this.length);}
-    public int getLength() {return this.length;}
-    public void setLength(int length) {this.length = length;}
-    public void removeTails() { //funkt nicht
-        tails.clear();
-    } //funkt nicht
-    public int getTailPositionX(int index){
-        return (int) tails.get(index).getCenterX();
-    }
-    public int getTailPositionY(int index){
-        return (int) tails.get(index).getCenterY();
-    }
+    public int getLength() {return tails.size();}//this.length;}
     public Bounds getBoundsOfTail(int index){
         return tails.get(index).getBoundsInLocal();
     }
-
-//bewegen:
+    //++++++++++++++++++++++++++ bewegen +++++++++++++++++++++++++++++++++++++++
     public void step() {
         for(int i = length-1; i>=0; i--){
             if(i==0){
@@ -93,9 +82,10 @@ public class Snake extends Circle{
     public boolean hitFood(Circle food){
         return food.intersects(this.getBoundsInLocal());
     }
-    public boolean hitBomb(Circle bomb){
+    public boolean hitBomb(){
         for (int i = 0; i < Bomb.getNumberOfObstacles(); i++) {
             if (this.intersects(Bomb.getBoundsOfObstacle(i))) {
+                System.out.println("hit");
                 return true;
             }
         }
@@ -107,6 +97,10 @@ public class Snake extends Circle{
             return this;
         }
         return tails.get(length-1);
+    }
+    public void removeTails(AnchorPane pane) { //funkt nicht
+        tails.clear();
+        pane.getChildren().remove(tails);
     }
     public void eat(Circle food){
         Circle tail = endTail();
@@ -122,12 +116,20 @@ public class Snake extends Circle{
         if(MenuController.isDarkmode()){
             food.setFill(colortailDarkmode);
         }
-        tails.add(length++, food);
-        System.out.println("length");
+        tails.add(food); // tails.add(length, food);
+        length++;
+        System.out.println("length = "+length);
     }
 
-    public void decrease(Circle bomb){
-        tails.remove(getLength()-1);
+    public void decrease(AnchorPane pane){
+        if(length==0){}
+        else {
+            System.out.println(tails);
+            pane.getChildren().remove(tails.get(length-1));
+            tails.remove(tails.get(length-1));
+            System.out.println(tails);
+            length--;
+            }
     }
 
     public boolean eatSelf(){

@@ -1,7 +1,5 @@
 package com.example.snakegame01;
 
-import javafx.scene.layout.AnchorPane;
-
 import javax.sound.sampled.*;
 import java.io.File;
 public class Sound {

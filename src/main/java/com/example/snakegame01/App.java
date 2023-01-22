@@ -62,6 +62,7 @@ public class App extends Application {
             MenuController.setObstacles(false);
             gameOver=false;
             Obstacle.deleteAll();
+            Bomb.deleteAll();
         }
 
         public void reload(ActionEvent event) throws IOException {
@@ -75,6 +76,7 @@ public class App extends Application {
             stage.show();
             gameOver=false;
             Obstacle.deleteAll();
+            Bomb.deleteAll();
 
             //launch Game:
             App Snake = new App();
@@ -319,6 +321,9 @@ public class App extends Application {
                     if(snake2.getLength()%2==0){         //Make walls
                         newObstacle();
                     }
+                }
+                else if(snake.hitBomb()){
+                    snake.decrease((AnchorPane) root);
                 }
             });
         }
