@@ -57,5 +57,4 @@ public class Obstacle extends Rectangle {
         obstacles.clear();
     }
 
-
 }

@@ -59,5 +59,4 @@ public class Bomb extends Circle {
     public static void deleteAll(){
         bombs.clear();
     }
-
 }

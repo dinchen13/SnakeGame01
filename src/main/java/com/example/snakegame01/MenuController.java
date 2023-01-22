@@ -46,10 +46,8 @@ public class MenuController {
     public Slider obstacles;
     private static boolean obstaclesActivated=false;
 
-
     private Stage stage;
     private Scene scene;
-    private Parent root;
 
     public static boolean isMultiplayer (){
         return multiplayer;

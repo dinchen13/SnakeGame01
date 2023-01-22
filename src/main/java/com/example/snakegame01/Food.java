@@ -2,7 +2,6 @@ package com.example.snakegame01;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
-
 import java.util.Random;
 public class Food extends Circle {
     private int radius;
