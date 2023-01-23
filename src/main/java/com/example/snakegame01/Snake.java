@@ -8,6 +8,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import static com.example.snakegame01.App.pause;
+
 public class Snake extends Circle{
 
     private List<Circle> tails;
@@ -59,24 +61,26 @@ public class Snake extends Circle{
     }
     //++++++++++++++++++++++++++ bewegen +++++++++++++++++++++++++++++++++++++++
     public void step() {
-        for(int i = length-1; i>=0; i--){
-            if(i==0){
-                tails.get(i).setCenterX(getCenterX());
-                tails.get(i).setCenterY(getCenterY());
-            }else {
-                tails.get(i).setCenterX(tails.get(i-1).getCenterX());
-                tails.get(i).setCenterY(tails.get(i-1).getCenterY());
+        if(!pause) {
+            for (int i = length - 1; i >= 0; i--) {
+                if (i == 0) {
+                    tails.get(i).setCenterX(getCenterX());
+                    tails.get(i).setCenterY(getCenterY());
+                } else {
+                    tails.get(i).setCenterX(tails.get(i - 1).getCenterX());
+                    tails.get(i).setCenterY(tails.get(i - 1).getCenterY());
+                }
             }
-        }
-        //Tasten drücken:
-        if (direction == Direction.UP) {
-            this.setCenterY(this.getCenterY() - STEP);
-        } else if (direction == Direction.DOWN) {
-            this.setCenterY(this.getCenterY() + STEP);
-        } else if (direction == Direction.LEFT) {
-            this.setCenterX(this.getCenterX() - STEP);
-        } else if (direction == Direction.RIGHT) {
-            this.setCenterX(this.getCenterX() + STEP);
+            //Tasten drücken:
+            if (direction == Direction.UP) {
+                this.setCenterY(this.getCenterY() - STEP);
+            } else if (direction == Direction.DOWN) {
+                this.setCenterY(this.getCenterY() + STEP);
+            } else if (direction == Direction.LEFT) {
+                this.setCenterX(this.getCenterX() - STEP);
+            } else if (direction == Direction.RIGHT) {
+                this.setCenterX(this.getCenterX() + STEP);
+            }
         }
     }
     public boolean hitFood(Circle food){
