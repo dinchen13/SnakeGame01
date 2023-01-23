@@ -15,7 +15,7 @@ import static com.example.snakegame01.App.pause;
 
 public class Snake extends Circle{
     private List<Circle> tails;
-    private int length;
+    public int length;
     private Direction direction;
     private static final int STEP =20;
     private Random random;
