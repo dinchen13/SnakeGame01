@@ -33,10 +33,10 @@ public class Snake extends Circle{
         int green = random.nextInt(255);
         int blue = random.nextInt(255);
         super.setFill(Color.rgb(red, green, blue));
-        if (MenuController.isSinglecolor()) {
+        if (MenuController.isSingleColor()) {
             super.setFill(color);
         }
-        if(MenuController.isDarkmode()) {
+        if(MenuController.isDarkMode()) {
             super.setFill(colorDarkmode);
         }
         pane.getChildren().add(this);
@@ -114,10 +114,10 @@ public class Snake extends Circle{
         int green = random.nextInt(255);
         int blue = random.nextInt(255);
         food.setFill(Color.rgb(red, green, blue));
-        if (MenuController.isSinglecolor()) {
+        if (MenuController.isSingleColor()) {
             food.setFill(colortail);
         }
-        if(MenuController.isDarkmode()){
+        if(MenuController.isDarkMode()){
             food.setFill(colortailDarkmode);
         }
         tails.add(food); // tails.add(length, food);

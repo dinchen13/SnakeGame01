@@ -292,7 +292,9 @@ public class App extends Application {
                     else if (snake.getLength()>30){}
                     score.setText(""+snake.getLengthString());
                     newFood();
-                    newBomb();
+                    if(snake.getLength()%2!=0){
+                        newBomb();
+                    }
                     if(snake.getLength()%2==0){         //Make obstacles
                         newObstacle();
                     }
@@ -304,12 +306,18 @@ public class App extends Application {
                     else if (snake2.getLength()>20){speed=speed-1;}
                     score.setText(""+snake2.getLengthString());
                     newFood();
+                    if(snake.getLength()%2!=0){
+                        newBomb();
+                    }
                     if(snake2.getLength()%2==0){         //Make obstacles
                         newObstacle();
                     }
                 }
                 else if(snake.hitBomb()){
                     snake.decrease((AnchorPane) root);
+                }
+                else if(twoPlayer&&snake2.hitBomb()){
+                    snake2.decrease((AnchorPane) root);
                 }
             });
         }
@@ -323,7 +331,7 @@ public class App extends Application {
             rect.setFill(c);
             root.getChildren().add(rect);
             rect.setVisible(false);
-            if(MenuController.isDarkmode()){
+            if(MenuController.isDarkMode()){
                 rect.setVisible(true);
             }
             score= new Text(48,85,"0");

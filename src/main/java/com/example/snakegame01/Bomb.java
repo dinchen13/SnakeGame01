@@ -4,7 +4,6 @@ import javafx.geometry.Bounds;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
-import javafx.scene.shape.Rectangle;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,7 +25,7 @@ public class Bomb extends Circle {
         super(positionX, positionY, radius);
         this.radius=(int) radius;
         super.setFill(color);
-        if(MenuController.isDarkmode()){
+        if(MenuController.isDarkMode()){
             super.setFill(colorDarkmode);
         }
         pane.getChildren().add(this);

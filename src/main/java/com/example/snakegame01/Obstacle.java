@@ -25,7 +25,7 @@ public class Obstacle extends Rectangle {
         super(positionX, positionY, size,size);
         this.size=(int) size;
         super.setFill(color);
-        if(MenuController.isDarkmode()){
+        if(MenuController.isDarkMode()){
             super.setFill(colorDarkmode);
         }
         pane.getChildren().add(this);

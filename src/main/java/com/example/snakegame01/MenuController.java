@@ -8,7 +8,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
-import javafx.scene.control.Slider;
+import javafx.scene.control.ToggleButton;
 import javafx.stage.Stage;
 import java.io.IOException;
 import java.util.Objects;
@@ -23,22 +23,35 @@ public class MenuController {
     @FXML
     public Button play;
     @FXML
-    public Slider playerCount;
+    public ToggleButton buttonSinglePlayer;
+    @FXML
+    public ToggleButton buttonMultiPlayer;
+    @FXML
+    public ToggleButton buttonOneColor;
+    @FXML
+    public ToggleButton buttonMulticolor;
+    @FXML
+    public ToggleButton buttonLightMode;
+    @FXML
+    public ToggleButton buttonDarkMode;
+    @FXML
+    public ToggleButton buttonWithoutWalls;
+    @FXML
+    public ToggleButton buttonWithWalls;
+    @FXML
+    public ToggleButton buttonWithoutBombs;
+    @FXML
+    public ToggleButton buttonWithBombs;
+    @FXML
+    public ToggleButton buttonWithoutObstacles;
+    @FXML
+    public ToggleButton buttonWithObstacles;
+
     private static boolean multiplayer = false;
-    @FXML
-    public Slider snakeColor;
-    private static boolean singlecolor = false;
-    @FXML
-    public Slider backgroundColor;
-    private static boolean darkmode = false;
-    @FXML
-    public Slider walls;
+    private static boolean singleColor = false;
+    private static boolean darkMode = false;
     private static boolean wallsActivated = false;
-    @FXML
-    public Slider bombs;
     private static boolean bombsActivated = false;
-    @FXML
-    public Slider obstacles;
     private static boolean obstaclesActivated = false;
     private Stage stage;
     private Scene scene;
@@ -51,20 +64,20 @@ public class MenuController {
         multiplayer = value;
     }
 
-    public static boolean isSinglecolor() {
-        return singlecolor;
+    public static boolean isSingleColor() {
+        return singleColor;
     }
 
     public static void setColor(boolean value) {
-        singlecolor = value;
+        singleColor = value;
     }
 
-    public static boolean isDarkmode() {
-        return darkmode;
+    public static boolean isDarkMode() {
+        return darkMode;
     }
 
     public static void setBackground(boolean value) {
-        darkmode = value;
+        darkMode = value;
     }
 
     public static boolean isWallsActivated() {
@@ -139,20 +152,41 @@ public class MenuController {
         System.exit(0);
     }
 
-    public void onSliderChanged() {
-        if (playerCount.getValue() > 0.5) {
+    public void whichButtonIsPressed(ActionEvent event) {
+        if (event.getSource()==buttonSinglePlayer) {
+            multiplayer = false;
+        }
+        else if (event.getSource()==buttonMultiPlayer) {
             multiplayer = true;
         }
-        if (snakeColor.getValue() > 0.5) {
-            singlecolor = true;
+        if (event.getSource()== buttonMulticolor) {
+            singleColor = false;
         }
-        if (backgroundColor.getValue() > 0.5) {
-            darkmode = true;
+        else if (event.getSource()==buttonOneColor) {
+            singleColor = true;
         }
-        if (walls.getValue() > 0.5) {
+        if (event.getSource()== buttonLightMode) {
+            darkMode = false;
+        }
+        else if (event.getSource()== buttonDarkMode) {
+            darkMode = true;
+        }
+        if (event.getSource()==buttonWithWalls) {
+            wallsActivated = false;
+        }
+        else if (event.getSource()==buttonWithoutWalls) {
             wallsActivated = true;
         }
-        if (obstacles.getValue() > 0.5) {
+        if (event.getSource()==buttonWithBombs) {
+            bombsActivated = false;
+        }
+        else if (event.getSource()==buttonWithoutBombs) {
+            bombsActivated = true;
+        }
+        if (event.getSource()==buttonWithObstacles) {
+            obstaclesActivated = false;
+        }
+        else if (event.getSource()==buttonWithoutObstacles) {
             obstaclesActivated = true;
         }
     }

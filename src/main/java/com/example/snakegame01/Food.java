@@ -16,7 +16,7 @@ public class Food extends Circle {
         super(positionX, positionY, radius);
         this.radius=(int) radius;
         super.setFill(color);
-        if(MenuController.isDarkmode()){
+        if(MenuController.isDarkMode()){
             super.setFill(colorDarkmode);
         }
         pane.getChildren().add(this);
