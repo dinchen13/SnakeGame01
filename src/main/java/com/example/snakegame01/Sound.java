@@ -50,7 +50,9 @@ public class Sound {
             AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(File[2]);
             Clip deadGame = AudioSystem.getClip();
             deadGame.open(audioInputStream);
-            deadGame.start();
+            //if (gameOver == true){ in App implementiert
+                deadGame.start();
+           // }
         }catch (Exception e){
             e.printStackTrace();
         }
