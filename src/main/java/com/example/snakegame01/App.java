@@ -401,7 +401,8 @@ public class App extends Application {
             th. setDaemon(true);
             th.start();
         }
-        //MMMAAAAIIIIINNNN:
+
+
         public static void main(String[] args) {
             launch();
         }
