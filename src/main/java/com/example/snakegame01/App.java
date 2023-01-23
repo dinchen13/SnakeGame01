@@ -3,7 +3,6 @@ package com.example.snakegame01;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -22,10 +21,7 @@ import java.io.IOException;
 import java.util.Objects;
 import java.util.Random;
 
-
-
 public class App extends Application {
-
         @FXML
         private Text score;
         private Pane root;
@@ -45,7 +41,8 @@ public class App extends Application {
         private Random random;
         private boolean twoPlayer =false;
         private boolean pause =false;
-        private boolean gameOver =false;
+        private static boolean gameOverDueScreen =false;
+        private static int openOnlyOnce =1;
 
         public void switchToMenu(ActionEvent event) throws IOException {
             root = FXMLLoader.load(getClass().getResource("menu.fxml"));
@@ -61,9 +58,7 @@ public class App extends Application {
             MenuController.setWalls(false);
             MenuController.setObstacles(false);
             MenuController.setBombs(false);
-            gameOver=false;
-            Obstacle.deleteAll();
-            Bomb.deleteAll();
+            setToStartValues();
         }
 
         public void reload(ActionEvent event) throws IOException {
@@ -75,9 +70,7 @@ public class App extends Application {
             stage.setScene(scene);
             stage.centerOnScreen();
             stage.show();
-            gameOver=false;
-            Obstacle.deleteAll();
-            Bomb.deleteAll();
+            setToStartValues();
 
             //launch Game:
             App Snake = new App();
@@ -85,12 +78,30 @@ public class App extends Application {
         }
 
         public void makePause(){
-            if (!pause){pause=true;}
-            else if (pause){pause=false;}
+            //if (!pause){pause=true;}
+            //else if (pause){pause=false;}
+            pause=true;
             System.out.println(pause);
             System.out.println("boah");
         }
-
+        public void switchToGameOver() throws IOException {
+            if(openOnlyOnce>=1) {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("GameOver.fxml"));
+                root = loader.load();
+                scene = new Scene(root);
+                stage = new Stage();
+                stage.setResizable(false);
+                stage.centerOnScreen();
+                stage.setScene(scene);
+                stage.show();
+            }
+        }
+        public static void setToStartValues(){
+            gameOverDueScreen =false;
+            Obstacle.deleteAll();
+            Bomb.deleteAll();
+            openOnlyOnce=1;
+        }
 
         //METHODEN:
         //Snake erstellen:
@@ -211,26 +222,26 @@ public class App extends Application {
         private void handleSnakeOutsideWalls(Snake snake) {
             //Wenns ausn Bildschrim raus geht:
             if (snake.getCenterX() > WIDTH - 20) {
-                if (!MenuController.isWallsActivated()) {
-                    snake.setCenterX(100 + RADIUS + 3);}
-                else{gameOver=true;}
+                if (MenuController.isWallsActivated()) {
+                    gameOverDueScreen =true;}
+                else{snake.setCenterX(100 + RADIUS + 3);}
             } else if (snake.getCenterX() < 100) {
-                if (!MenuController.isWallsActivated()) {
-                    snake.setCenterX(WIDTH - 20 - RADIUS - 3);}
-                else{gameOver=true;}
+                if (MenuController.isWallsActivated()) {
+                    gameOverDueScreen =true;}
+                else{snake.setCenterX(WIDTH - 20 - RADIUS - 3);}
             }
             if (snake.getCenterY() > HEIGHT - 20 - RADIUS - 3) {
-                if (!MenuController.isWallsActivated()) {
-                    snake.setCenterY(20 + RADIUS + 3);}
-                else{gameOver=true;}
+                if (MenuController.isWallsActivated()) {
+                    gameOverDueScreen =true;}
+                else{snake.setCenterY(20 + RADIUS + 3);}
             } else if (snake.getCenterY() < 20) {
-                if (!MenuController.isWallsActivated()) {
-                    snake.setCenterY(HEIGHT - 20 - RADIUS - 3);}
-                else{gameOver=true;}
+                if (MenuController.isWallsActivated()) {
+                    gameOverDueScreen =true;}
+                else{snake.setCenterY(HEIGHT - 20 - RADIUS - 3);}
             }
         }
         private boolean checkIfGameOver(){
-            if(MenuController.isWallsActivated()&&gameOver){
+            if(MenuController.isWallsActivated()&& gameOverDueScreen){
                 System.out.println("die 1");
                 return true;
             }
@@ -268,42 +279,12 @@ public class App extends Application {
                 if(twoPlayer){snake2.step();}
                 if(twoPlayer){
                     handleSnakeOutsideWalls(snake2);}
-                if(checkIfGameOver()){
-                    /*
-                    EventHandler<ActionEvent> customEvent = e -> {
-
-                            (t -> t.fireEvent(new ActionEvent()));
-
-                    };
-
-                    FXMLLoader loader = new FXMLLoader(getClass().getResource("Game.fxml"));
+                if (checkIfGameOver()) {            //gameOver Screen öffnen
                     try {
-                        root = loader.load();
-                    } catch (IOException ex) {
-                        throw new RuntimeException(ex);
+                        switchToGameOver();
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
                     }
-                    scene = new Scene(root);
-                    stage = (Stage) ((Node) e.getSource()).getScene().getWindow();
-                    stage.setResizable(false);
-                    stage.centerOnScreen();
-                    stage.setScene(scene);
-                    stage.show();
-                    */
-
-
-                               /* try {
-                                    root = FXMLLoader.load(App.class.getResource("Game.fxml"));
-                                } catch (IOException e) {
-                                    throw new RuntimeException(e);
-                                }
-                                score.setText("Game Over");
-                                newSnake();
-                                newFood();
-                                try {
-                                    Sound.ifEats();
-                                } catch (Exception e) {
-                                    throw new RuntimeException(e);
-                                }*/
                 }
                 else if(snake.hitFood(food)){
                     snake.eat(food);
@@ -362,7 +343,7 @@ public class App extends Application {
             //Was ist Runnable? ein interface,
             Runnable r = () -> {
                 try {
-                    for (;;){
+                    while(!checkIfGameOver()){
                         updateGame();
                         Thread.sleep(speed);
                     }
