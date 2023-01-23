@@ -40,12 +40,12 @@ public class App extends Application {
         private int speed;
         private Random random;
         private boolean twoPlayer =false;
-        private boolean pause =false;
+        public static boolean pause =false;
         private static boolean gameOverDueScreen =false;
         private static int openOnlyOnce =1;
 
         public void switchToMenu(ActionEvent event) throws IOException {
-            root = FXMLLoader.load(getClass().getResource("menu.fxml"));
+            root = FXMLLoader.load(getClass().getResource("Menu.fxml"));
             stage = (Stage)((Node)event.getSource()).getScene().getWindow();
             scene = new Scene(root);
             stage.setScene(scene);
@@ -77,11 +77,9 @@ public class App extends Application {
         }
 
         public void makePause(){
-            //if (!pause){pause=true;}
-            //else if (pause){pause=false;}
-            pause=true;
-            System.out.println(pause);
-            System.out.println("boah");
+            if (!pause){pause=true;}
+            else if (pause){pause=false;}
+            System.out.println("Pause");
         }
         public void switchToGameOver() throws IOException {
             if(openOnlyOnce>=1) {
@@ -335,11 +333,12 @@ public class App extends Application {
             newSnake();
             newFood();
             newBomb();
+            //Sound.playSound();
 
             //Scene setzten:
             Scene scene = new Scene(root);
 
-            //Was ist Runnable? ein interface,
+            //Runnable ist ein interface, dass bei Threads implementiert werden muss
             Runnable r = () -> {
                 try {
                     while(!checkIfGameOver()){

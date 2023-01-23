@@ -9,10 +9,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Slider;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Pane;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import java.io.IOException;
 import java.util.Objects;
@@ -97,7 +93,7 @@ public class MenuController {
 
 
     public void switchToMenu(ActionEvent event) throws Exception {
-        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("menu.fxml")));
+        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("Menu.fxml")));
         stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         scene = new Scene(root);
 
@@ -116,7 +112,6 @@ public class MenuController {
         stage.setScene(scene);
         stage.centerOnScreen();
         stage.show();
-        //Sound.playSound();
 
         //launch Game:
         App Snake = new App();
@@ -124,7 +119,7 @@ public class MenuController {
     }
 
     public void switchToInfo(ActionEvent event) throws IOException {
-        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("howtoplay.fxml")));
+        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("Howtoplay.fxml")));
         //stage = (Stage) howtoplay.getScene().getWindow();
         stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         scene = new Scene(root);
