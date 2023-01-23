@@ -59,7 +59,6 @@ public class App extends Application {
             MenuController.setBombs(false);
             setToStartValues();
         }
-
         public void reload(ActionEvent event) throws IOException {
             Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("Game.fxml")));
             //stage = (Stage) start.getScene().getWindow();
@@ -75,7 +74,6 @@ public class App extends Application {
             App Snake = new App();
             Snake.start(stage);
         }
-
         public void makePause(){
             if (!pause){pause=true;}
             else if (pause){pause=false;}
@@ -100,7 +98,6 @@ public class App extends Application {
             openOnlyOnce=1;
         }
 
-        //METHODEN:
         //Snake erstellen:
         private void newSnake(){
             if(twoPlayer) {
@@ -142,6 +139,7 @@ public class App extends Application {
                 System.out.println("make Wall");
             }
         }
+        //no object is allowed to spawn over another object
         private void moveObstacleAway(){
             obstacle.moveLocation();
             if(twoPlayer){
@@ -181,6 +179,7 @@ public class App extends Application {
                 }
             }
         }
+        // ++++++++++++++ see if an object is spawned inside/over another object, as this isn´t wished +++++++++++++++++
         private boolean isInsideSnake(Snake snake, Shape shape){
             for (int i = 0; i < snake.getLength(); i++) {
                 if((shape.intersects(snake.getBoundsInLocal()))||(shape.intersects(snake.getBoundsOfTail(i)))){
@@ -215,7 +214,7 @@ public class App extends Application {
             }
             return false;
         }
-        //Bildschirm anpassen
+        //+++++++++++++++++++++++++++adjust screen or snake dies if walls activated+++++++++++++++++++++++++++++++++++++
         private void handleSnakeOutsideWalls(Snake snake) {
             //Wenns ausn Bildschrim raus geht:
             if (snake.getCenterX() > WIDTH - 20) {
@@ -237,15 +236,16 @@ public class App extends Application {
                 else{snake.setCenterY(HEIGHT - 20 - RADIUS - 3);}
             }
         }
+        //+++++++++++++++++++++++++++checks if game is lost with different scenarios++++++++++++++++++++++++++++++++++++
         private boolean checkIfGameOver(){
             if(MenuController.isWallsActivated()&& gameOverDueScreen){
-                System.out.println("die 1");
+                System.out.println("die 1");                                        //die because of walls
                 return true;
             }
             if((MenuController.isObstaclesActivated())&&snake.getLength()>=2) {
                 for (int i = 0; i < Obstacle.getNumberOfObstacles(); i++) {
                     if (snake.intersects(Obstacle.getBoundsOfObstacle(i))) {
-                        System.out.println("die 2");
+                        System.out.println("die 2");                                        //die because of obstacles
                         return true;
                     }
                 }
@@ -254,21 +254,22 @@ public class App extends Application {
                 if((MenuController.isObstaclesActivated())&&snake2.getLength()>=2) {
                     for (int i = 0; i < Obstacle.getNumberOfObstacles(); i++) {
                         if (snake2.intersects(Obstacle.getBoundsOfObstacle(i))) {
-                            System.out.println("die 3");
+                            System.out.println("die 3");                              //die because of obstacles snake 2
                             return true;
                         }
                     }
                 }
-                if(snake2.eatSelf()){System.out.println("die 4");return true;}
-                if(snake.intersects(snake2.getBoundsInLocal())){System.out.println("die 5");return true;}
-                if(snake2.intersects(snake.getBoundsInLocal())){System.out.println("die 6");return true;}
+                if(snake2.eatSelf()){System.out.println("die 4");return true;}                 //die because of walls snake 2
+                if(snake.intersects(snake2.getBoundsInLocal())){System.out.println("die 5");return true;}//die because of intersection between snakes
+                if(snake2.intersects(snake.getBoundsInLocal())){System.out.println("die 6");return true;}//die because of intersection between snakes
             }
             if (snake.eatSelf()) {                      //just for debugging
-                System.out.println("die 7");
+                System.out.println("die 7");                                        //die because of intersection with self
             }
             return snake.eatSelf();
         }
-
+        //+++++++++++++++++++++++++++++++++++++++updates the game state+++++++++++++++++++++++++++++++++++++++++++++++++
+        //---------------------------------gets called in Runnable interface--------------------------------------------
         public void updateGame() {
             Platform.runLater(()-> {            //braucht man wenn ein anderer Thread (other than the creator) Änderungen machen könnte
                 snake.step();
@@ -276,7 +277,7 @@ public class App extends Application {
                 if(twoPlayer){snake2.step();}
                 if(twoPlayer){
                     handleSnakeOutsideWalls(snake2);}
-                if (checkIfGameOver()) {            //gameOver Screen öffnen
+                if (checkIfGameOver()) {                                //gameOver Screen öffnen
                     try {
                         switchToGameOver();
                     } catch (IOException e) {
@@ -292,7 +293,7 @@ public class App extends Application {
                     score.setText(""+snake.getLengthString());
                     newFood();
                     newBomb();
-                    if(snake.getLength()%2==0){         //Make walls
+                    if(snake.getLength()%2==0){         //Make obstacles
                         newObstacle();
                     }
                 }
@@ -303,7 +304,7 @@ public class App extends Application {
                     else if (snake2.getLength()>20){speed=speed-1;}
                     score.setText(""+snake2.getLengthString());
                     newFood();
-                    if(snake2.getLength()%2==0){         //Make walls
+                    if(snake2.getLength()%2==0){         //Make obstacles
                         newObstacle();
                     }
                 }
@@ -315,7 +316,7 @@ public class App extends Application {
         //PROGRAMM:
         @Override
         public void start(Stage stage) throws IOException {
-            //Bildschirm laden:
+            //++++++++++++++++++++++++++++++++++++load Screen and Game++++++++++++++++++++++++++++++++++++++++++++++++++
             root = FXMLLoader.load(App.class.getResource("Game.fxml"));
             Rectangle rect = new Rectangle(100, 20, 560, 560);
             Color c= Color.rgb(58, 14, 14);
@@ -373,7 +374,6 @@ public class App extends Application {
                     }
                 }
             });
-
 
             //Bildschirmeinstellungen:
             stage.setTitle("snake");
