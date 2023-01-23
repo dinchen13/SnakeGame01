@@ -56,6 +56,7 @@ public class MenuController {
     private Stage stage;
     private Scene scene;
 
+    //++++++++++++++++++++++++++++++++++++ getter & setters +++++++++++++++++++++++++++++++++++++++++
     public static boolean isMultiplayer() {
         return multiplayer;
     }
@@ -93,6 +94,7 @@ public class MenuController {
         bombsActivated = value;
     }
 
+    //++++++++++++++++++++++++++++++++++++ switches to menu at the beginning +++++++++++++++++++++++++++++++++++++++++
     public void switchToMenu(ActionEvent event) throws Exception {
         Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("Menu.fxml")));
         stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
@@ -102,6 +104,7 @@ public class MenuController {
         stage.centerOnScreen();
         stage.show();
     }
+    //++++++++++++++++++++++++++++++++++++ starts game +++++++++++++++++++++++++++++++++++++++++
     public void switchToGame(ActionEvent event) throws IOException {
         Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("Game.fxml")));
         //stage = (Stage) start.getScene().getWindow();
@@ -116,6 +119,7 @@ public class MenuController {
         App Snake = new App();
         Snake.start(stage);
     }
+    //++++++++++++++++++++++++++++++++++++ switched to info screen how to play +++++++++++++++++++++++++++++++++++++++++
     public void switchToInfo(ActionEvent event) throws IOException {
         Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("Howtoplay.fxml")));
         //stage = (Stage) howtoplay.getScene().getWindow();
@@ -127,6 +131,7 @@ public class MenuController {
         stage.show();
 
     }
+    //+++++++++++++++++++++++++++++++++ exits whole game when button exit pressed +++++++++++++++++++++++++++++++++++++++
     public void exitGame() throws IOException {
         Alert a = new Alert(Alert.AlertType.NONE);
         a.setAlertType(Alert.AlertType.CONFIRMATION);
@@ -134,6 +139,7 @@ public class MenuController {
         a.showAndWait();
         System.exit(0);
     }
+    //++++++++++++++++++++++++++++++++++++ checks the selected game modes  ++++++++++++++++++++++++++++++++++++++++
     public void whichButtonIsPressed(ActionEvent event) {
         if (event.getSource()==buttonSinglePlayer) {
             buttonSinglePlayer.setStyle("fx-background-color: #50C878");
