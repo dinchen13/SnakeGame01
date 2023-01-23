@@ -329,7 +329,7 @@ public class App extends Application {
                 }
             });
         }
-        //PROGRAMM:
+    //++++++++++++++++++++++++++++++++++++start method++++++++++++++++++++++++++++++++++++++++++++++++++
         @Override
         public void start(Stage stage) throws IOException {
             //++++++++++++++++++++++++++++++++++++load Screen and Game++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -352,10 +352,10 @@ public class App extends Application {
             newBomb();
             //Sound.playSound();
 
-            //Scene setzten:
+            //set scene
             Scene scene = new Scene(root);
 
-            //Runnable ist ein interface, dass bei Threads implementiert werden muss
+            //Runnable interface of thread
             Runnable r = () -> {
                 try {
                     while(!checkIfGameOver()){
@@ -365,8 +365,7 @@ public class App extends Application {
                 }catch (InterruptedException ie){
                 }
             };
-
-            //Tasten drücken:
+            //++++++++++++++++++++++++++++++++++++ events when key gets pressed ++++++++++++++++++++++++++++++++++++++++++++++++++
             scene.addEventFilter(KeyEvent.KEY_PRESSED, event -> {
                 KeyCode code = event.getCode();
                 if ((code == KeyCode.UP)&&((snake.getDirection()!=Direction.DOWN)||(snake.getLength()==0))){
@@ -391,13 +390,13 @@ public class App extends Application {
                 }
             });
 
-            //Bildschirmeinstellungen:
+            //screen settings
             stage.setTitle("snake");
             stage.setScene(scene);
             stage.setResizable(false);
             stage.show();
 
-            //Thread starten:
+            //make Thread and start it:
             th = new Thread(r);
             th. setDaemon(true);
             th.start();
@@ -407,6 +406,3 @@ public class App extends Application {
             launch();
         }
     }
-
-
-    //i love youuu kevin
