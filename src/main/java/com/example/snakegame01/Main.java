@@ -4,6 +4,9 @@ import javafx.fxml.FXMLLoader;
 import javafx.stage.Stage;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
+
+
 
 public class Main extends Application {
     @Override
@@ -12,7 +15,8 @@ public class Main extends Application {
             Parent root = FXMLLoader.load(getClass().getResource("LoadingScreen.fxml"));
             //Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("LoadingScreen.fxml")));
             Scene scene = new Scene(root);
-
+            //Icon ändern
+            stage.getIcons().add(new Image(Main.class.getResourceAsStream("SnakeIcon1.png")));
             stage.setTitle("Snake");
             stage.setScene(scene);
             stage.centerOnScreen();

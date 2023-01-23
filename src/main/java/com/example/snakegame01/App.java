@@ -21,7 +21,6 @@ import java.io.IOException;
 import java.util.Objects;
 import java.util.Random;
 
-import static com.example.snakegame01.Sound.gameOverSound;
 
 
 public class App extends Application {
@@ -239,7 +238,7 @@ public class App extends Application {
                         throw new RuntimeException(e);
                     }
                     score.setText("Game Over");
-                    gameOverSound();
+                    Sound.gameOverSound();
                     newSnake();
                     newFood();
                     try {

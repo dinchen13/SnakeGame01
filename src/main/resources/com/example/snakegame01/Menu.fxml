@@ -1,0 +1,236 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.ToggleButton?>
+<?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.effect.ColorAdjust?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.paint.Color?>
+<?import javafx.scene.paint.LinearGradient?>
+<?import javafx.scene.paint.Stop?>
+<?import javafx.scene.shape.Circle?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="780.0" prefWidth="780.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.snakegame01.MenuController">
+   <children>
+      <Circle layoutX="396.0" layoutY="398.0" radius="589.0" rotate="-177.2" stroke="BLACK" strokeType="INSIDE">
+         <fill>
+            <LinearGradient endX="0.5037879004622949" endY="0.8030303012241017">
+               <stops>
+                  <Stop>
+                     <color>
+                        <Color red="0.11999999731779099" green="1.0" blue="0.842538058757782" />
+                     </color>
+                  </Stop>
+                  <Stop offset="1.0">
+                     <color>
+                        <Color red="0.9416666626930237" green="1.0" blue="0.6499999761581421" />
+                     </color>
+                  </Stop>
+               </stops>
+            </LinearGradient>
+         </fill>
+      </Circle>
+      <Button fx:id="start" layoutX="510.0" layoutY="372.0" mnemonicParsing="false" onAction="#switchToGame" prefHeight="100.0" prefWidth="220.0" text="START" textAlignment="CENTER">
+         <font>
+            <Font name="Arial" size="24.0" />
+         </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </Button>
+      <Text fill="#178954" layoutX="252.0" layoutY="117.0" strokeType="OUTSIDE" strokeWidth="0.0" text="MENU" textAlignment="CENTER" wrappingWidth="284.5947265625">
+         <font>
+            <Font name="High Tower Text" size="67.0" />
+         </font>
+      </Text>
+      <Button fx:id="howToPlay" layoutX="510.0" layoutY="496.0" mnemonicParsing="false" onAction="#switchToInfo" prefHeight="100.0" prefWidth="220.0" text="HOW TO PLAY">
+         <font>
+            <Font name="Arial" size="24.0" />
+         </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </Button>
+      <Button fx:id="quit" layoutX="510.0" layoutY="625.0" mnemonicParsing="false" onAction="#exitGame" prefHeight="100.0" prefWidth="220.0" text="QUIT">
+         <font>
+            <Font name="Arial" size="24.0" />
+         </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </Button>
+      <CheckBox layoutX="511.0" layoutY="266.0" mnemonicParsing="false" prefHeight="89.0" prefWidth="262.0" text="Game Sound">
+         <font>
+            <Font name="Ink Free" size="30.0" />
+         </font>
+      </CheckBox>
+      <Text layoutX="51.0" layoutY="220.0" strokeType="OUTSIDE" strokeWidth="0.0" text="1 Player">
+         <font>
+            <Font name="Ink Free" size="16.0" />
+         </font></Text>
+      <Text layoutX="361.0" layoutY="219.0" strokeType="OUTSIDE" strokeWidth="0.0" text="2 Player">
+         <font>
+            <Font name="Ink Free" size="16.0" />
+         </font></Text>
+      <Text layoutX="46.0" layoutY="312.0" strokeType="OUTSIDE" strokeWidth="0.0" text="one color">
+         <font>
+            <Font name="Ink Free" size="16.0" />
+         </font></Text>
+      <Text layoutX="363.0" layoutY="312.0" strokeType="OUTSIDE" strokeWidth="0.0" text="multicolor ">
+         <font>
+            <Font name="Ink Free" size="16.0" />
+         </font></Text>
+      <Text layoutX="54.0" layoutY="521.0" strokeType="OUTSIDE" strokeWidth="0.0" text="without">
+         <font>
+            <Font name="Ink Free" size="16.0" />
+         </font></Text>
+      <Text layoutX="56.0" layoutY="621.0" strokeType="OUTSIDE" strokeWidth="0.0" text="without">
+         <font>
+            <Font name="Ink Free" size="16.0" />
+         </font></Text>
+      <Text layoutX="362.0" layoutY="622.0" strokeType="OUTSIDE" strokeWidth="0.0" text="bombs" wrappingWidth="58.45751953125">
+         <font>
+            <Font name="Ink Free" size="16.0" />
+         </font></Text>
+      <Text layoutX="358.0" layoutY="521.0" strokeType="OUTSIDE" strokeWidth="0.0" text="walls">
+         <font>
+            <Font name="Ink Free" size="16.0" />
+         </font></Text>
+      <Text layoutX="360.0" layoutY="722.0" strokeType="OUTSIDE" strokeWidth="0.0" text="obstacles">
+         <font>
+            <Font name="Ink Free" size="16.0" />
+         </font></Text>
+      <Text layoutX="56.0" layoutY="721.0" strokeType="OUTSIDE" strokeWidth="0.0" text="without">
+         <font>
+            <Font name="Ink Free" size="16.0" />
+         </font></Text>
+      <Text layoutX="361.0" layoutY="420.0" strokeType="OUTSIDE" strokeWidth="0.0" text="darkmode">
+         <font>
+            <Font name="Ink Free" size="16.0" />
+         </font></Text>
+      <Text layoutX="39.0" layoutY="421.0" strokeType="OUTSIDE" strokeWidth="0.0" text="lightmode">
+         <font>
+            <Font name="Ink Free" size="16.0" />
+         </font></Text>
+      <ToggleButton fx:id="buttonSinglePlayer" layoutX="114.0" layoutY="203.0" mnemonicParsing="false" onAction="#whichButtonIsPressed" prefHeight="26.0" prefWidth="117.0" selected="true">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+         <toggleGroup>
+            <ToggleGroup fx:id="Players" />
+         </toggleGroup>
+         <effect>
+            <ColorAdjust />
+         </effect>
+      </ToggleButton>
+      <ToggleButton fx:id="buttonMultiPlayer" layoutX="231.0" layoutY="203.0" mnemonicParsing="false" onAction="#whichButtonIsPressed" prefHeight="26.0" prefWidth="117.0" toggleGroup="$Players">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+         <effect>
+            <ColorAdjust />
+         </effect></ToggleButton>
+      <ToggleButton fx:id="buttonOneColor" layoutX="114.0" layoutY="303.0" mnemonicParsing="false" onAction="#whichButtonIsPressed" prefHeight="26.0" prefWidth="117.0" selected="true">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+         <toggleGroup>
+            <ToggleGroup fx:id="Color" />
+         </toggleGroup>
+         <effect>
+            <ColorAdjust />
+         </effect>
+      </ToggleButton>
+      <ToggleButton fx:id="buttonMulticolor" layoutX="231.0" layoutY="303.0" mnemonicParsing="false" onAction="#whichButtonIsPressed" prefHeight="26.0" prefWidth="117.0" toggleGroup="$Color">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+         <effect>
+            <ColorAdjust />
+         </effect></ToggleButton>
+      <Text layoutX="62.0" layoutY="328.0" strokeType="OUTSIDE" strokeWidth="0.0" text="snake">
+         <font>
+            <Font name="Ink Free" size="16.0" />
+         </font></Text>
+      <ToggleButton fx:id="buttonLightMode" layoutX="114.0" layoutY="403.0" mnemonicParsing="false" onAction="#whichButtonIsPressed" prefHeight="26.0" prefWidth="117.0" selected="true">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+         <toggleGroup>
+            <ToggleGroup fx:id="Background" />
+         </toggleGroup>
+         <effect>
+            <ColorAdjust />
+         </effect>
+      </ToggleButton>
+      <ToggleButton fx:id="buttonDarkMode" layoutX="231.0" layoutY="403.0" mnemonicParsing="false" onAction="#whichButtonIsPressed" prefHeight="26.0" prefWidth="117.0" toggleGroup="$Background">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+         <effect>
+            <ColorAdjust />
+         </effect></ToggleButton>
+      <ToggleButton fx:id="buttonWithWalls" layoutX="114.0" layoutY="503.0" mnemonicParsing="false" onAction="#whichButtonIsPressed" prefHeight="26.0" prefWidth="117.0" selected="true">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+         <toggleGroup>
+            <ToggleGroup fx:id="Walls" />
+         </toggleGroup>
+         <effect>
+            <ColorAdjust />
+         </effect>
+      </ToggleButton>
+      <ToggleButton fx:id="buttonWithoutWalls" layoutX="231.0" layoutY="503.0" mnemonicParsing="false" onAction="#whichButtonIsPressed" prefHeight="26.0" prefWidth="117.0" toggleGroup="$Walls">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+         <effect>
+            <ColorAdjust />
+         </effect></ToggleButton>
+      <ToggleButton fx:id="buttonWithBombs" layoutX="114.0" layoutY="603.0" mnemonicParsing="false" onAction="#whichButtonIsPressed" prefHeight="26.0" prefWidth="117.0" selected="true">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+         <toggleGroup>
+            <ToggleGroup fx:id="Bombs" />
+         </toggleGroup>
+         <effect>
+            <ColorAdjust />
+         </effect>
+      </ToggleButton>
+      <ToggleButton fx:id="buttonWithoutBombs" layoutX="231.0" layoutY="603.0" mnemonicParsing="false" onAction="#whichButtonIsPressed" prefHeight="26.0" prefWidth="117.0" toggleGroup="$Bombs">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+         <effect>
+            <ColorAdjust />
+         </effect></ToggleButton>
+      <ToggleButton fx:id="buttonWithObstacles" layoutX="114.0" layoutY="703.0" mnemonicParsing="false" onAction="#whichButtonIsPressed" prefHeight="26.0" prefWidth="117.0" selected="true">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+         <toggleGroup>
+            <ToggleGroup fx:id="Obstacles" />
+         </toggleGroup>
+         <effect>
+            <ColorAdjust />
+         </effect>
+      </ToggleButton>
+      <ToggleButton fx:id="buttonWithoutObstacles" layoutX="231.0" layoutY="703.0" mnemonicParsing="false" onAction="#whichButtonIsPressed" prefHeight="26.0" prefWidth="117.0" toggleGroup="$Obstacles">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+         <effect>
+            <ColorAdjust />
+         </effect></ToggleButton>
+      <Text layoutX="363.0" layoutY="328.0" strokeType="OUTSIDE" strokeWidth="0.0" text="snake">
+         <font>
+            <Font name="Ink Free" size="16.0" />
+         </font></Text>
+   </children>
+</AnchorPane>

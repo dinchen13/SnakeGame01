@@ -1,36 +1,36 @@
 package com.example.snakegame01;
-
 import javafx.geometry.Bounds;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import java.util.ArrayList;
 import java.util.List;
-
 import java.util.Random;
 
-public class Obstacle extends Rectangle {
+//---------------------------------------------------------------------------------------------
+// Bomb object
+// Methods: getter/setter, moveLocation, randomLocationObstacle, (deleteBomb), deleteAll
+//---------------------------------------------------------------------------------------------
 
+public class Obstacle extends Rectangle {
     private int size;
-    private Rectangle obstacle;
     private Random random = new Random();
-    private int positionX;
-    private int positionY;
     private Color color =Color.BLACK;
     private Color colorDarkmode =Color.SNOW;
     private static List<Rectangle> obstacles =new ArrayList<>();
 
-
+    //++++++++++++++++++++++++++++++++++++++++++ constructor +++++++++++++++++++++++++++++++++++++++++++++
     public Obstacle(double positionX, double positionY, AnchorPane pane, double size){
         super(positionX, positionY, size,size);
         this.size=(int) size;
         super.setFill(color);
-        if(MenuController.isDarkmode()){
+        if(MenuController.isDarkMode()){
             super.setFill(colorDarkmode);
         }
         pane.getChildren().add(this);
         obstacles.add(this);
     }
+    //++++++++++++++++++++++++++++++++++++ getter & setters +++++++++++++++++++++++++++++++++++++++++
     public void setPositionX(int positionX) {
         this.setX(positionX);
     }
@@ -44,6 +44,8 @@ public class Obstacle extends Rectangle {
             return obstacles.get(index).getBoundsInLocal();
     }
 
+    //++++++++++++++++ moves obstacle away because of intersection with other objects ++++++++++++++++++++
+    //------------------------------------is called in class App ----------------------------------------
     public void moveLocation(){
         randomLocationObstacle();
     }
@@ -53,6 +55,7 @@ public class Obstacle extends Rectangle {
         setPositionX(x);
         setPositionY(y);
     }
+    //++++++++++++++++++++++++++++++++deletes all obstacles after gameOver ++++++++++++++++++++++++++++++++++++
     public static void deleteAll(){
         obstacles.clear();
     }

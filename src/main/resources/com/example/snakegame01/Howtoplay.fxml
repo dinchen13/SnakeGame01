@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.paint.Color?>
+<?import javafx.scene.paint.LinearGradient?>
+<?import javafx.scene.paint.Stop?>
+<?import javafx.scene.shape.Circle?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane prefHeight="780.0" prefWidth="780.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.snakegame01.App">
+   <children>
+      <Rectangle arcHeight="5.0" arcWidth="5.0" height="789.0" layoutX="-3.0" layoutY="-4.0" stroke="BLACK" strokeType="INSIDE" width="790.0">
+         <fill>
+            <LinearGradient endX="1.0" endY="1.0">
+               <stops>
+                  <Stop>
+                     <color>
+                        <Color red="0.11999999731779099" green="1.0" blue="0.4787047505378723" />
+                     </color>
+                  </Stop>
+                  <Stop offset="1.0">
+                     <color>
+                        <Color red="0.9411764740943909" green="1.0" blue="0.6509804129600525" />
+                     </color>
+                  </Stop>
+               </stops>
+            </LinearGradient>
+         </fill>
+      </Rectangle>
+      <Text layoutX="291.0" layoutY="80.0" strokeType="OUTSIDE" strokeWidth="0.0" text="HOW TO PLAY">
+         <font>
+            <Font name="Arial Bold" size="31.0" />
+         </font></Text>
+      <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Text" />
+      <Button layoutX="348.0" layoutY="708.0" mnemonicParsing="false" onAction="#switchToMenu" text="Back to Menu" />
+      <Text layoutX="177.0" layoutY="487.0" strokeType="OUTSIDE" strokeWidth="0.0" text="SINGLE PLAYER" wrappingWidth="89.0" />
+      <Text layoutX="540.0" layoutY="487.0" strokeType="OUTSIDE" strokeWidth="0.0" text="MULTIPLAYER" />
+      <Text layoutX="124.0" layoutY="132.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Choose between the different options in the menu using the Buttons. " wrappingWidth="552.697265625">
+         <font>
+            <Font name="Arial" size="18.0" />
+         </font>
+      </Text>
+      <ImageView fitHeight="236.0" fitWidth="321.0" layoutX="400.0" layoutY="474.0">
+         <image>
+            <Image url="@WASD_FINAL.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="311.0" fitWidth="645.0" layoutX="-266.0" layoutY="474.0">
+         <image>
+            <Image url="@ARROWS_FINAL.png" />
+         </image>
+      </ImageView>
+      <Text layoutX="295.0" layoutY="178.0" strokeType="OUTSIDE" strokeWidth="0.0" text="You can choose between:" wrappingWidth="210.697265625">
+         <font>
+            <Font name="Arial" size="18.0" />
+         </font>
+      </Text>
+      <Text layoutX="318.0" layoutY="219.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Single/Multiplayer" wrappingWidth="168.697265625">
+         <font>
+            <Font name="Arial" size="18.0" />
+         </font>
+      </Text>
+      <Circle fill="DODGERBLUE" layoutX="295.0" layoutY="212.0" radius="8.0" stroke="BLACK" strokeType="INSIDE" />
+      <Circle fill="DODGERBLUE" layoutX="295.0" layoutY="243.0" radius="8.0" stroke="BLACK" strokeType="INSIDE" />
+      <Text layoutX="318.0" layoutY="249.0" strokeType="OUTSIDE" strokeWidth="0.0" text="One/Multicolor Snake" wrappingWidth="199.697265625">
+         <font>
+            <Font name="Arial" size="18.0" />
+         </font>
+      </Text>
+      <Circle fill="DODGERBLUE" layoutX="295.0" layoutY="273.0" radius="8.0" stroke="BLACK" strokeType="INSIDE" />
+      <Text layoutX="318.0" layoutY="279.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Light/Darkmode" wrappingWidth="168.697265625">
+         <font>
+            <Font name="Arial" size="18.0" />
+         </font>
+      </Text>
+      <Circle fill="DODGERBLUE" layoutX="295.0" layoutY="302.0" radius="8.0" stroke="BLACK" strokeType="INSIDE" />
+      <Text layoutX="318.0" layoutY="308.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Walls/no Walls" wrappingWidth="168.697265625">
+         <font>
+            <Font name="Arial" size="18.0" />
+         </font>
+      </Text>
+      <Circle fill="DODGERBLUE" layoutX="295.0" layoutY="331.0" radius="8.0" stroke="BLACK" strokeType="INSIDE" />
+      <Text layoutX="316.0" layoutY="338.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Bombs/no Bombs" wrappingWidth="168.697265625">
+         <font>
+            <Font name="Arial" size="18.0" />
+         </font>
+      </Text>
+      <Circle fill="DODGERBLUE" layoutX="295.0" layoutY="362.0" radius="8.0" stroke="BLACK" strokeType="INSIDE" />
+      <Text layoutX="316.0" layoutY="369.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Obstacles/no Obstacles" wrappingWidth="193.697265625">
+         <font>
+            <Font name="Arial" size="18.0" />
+         </font>
+      </Text>
+      <Text layoutX="185.0" layoutY="434.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Try to get your Snake as long as you can! Have fun!" wrappingWidth="416.697265625">
+         <font>
+            <Font name="Arial" size="18.0" />
+         </font>
+      </Text>
+   </children>
+</AnchorPane>
