@@ -21,6 +21,7 @@ import java.io.IOException;
 import java.util.Objects;
 import java.util.Random;
 
+import static com.example.snakegame01.Sound.gameOverSound;
 
 
 public class App extends Application {
@@ -174,20 +175,22 @@ public class App extends Application {
             if (snake.getCenterX() > WIDTH - 20) {
                 if (!MenuController.isWallsActivated()) {
                     snake.setCenterX(100 + RADIUS + 3);}
-                else{gameOver=true;}
+                else{gameOver=true; Sound.gameOverSound();}
             } else if (snake.getCenterX() < 100) {
                 if (!MenuController.isWallsActivated()) {
                     snake.setCenterX(WIDTH - 20 - RADIUS - 3);}
-                else{gameOver=true;}
+                else{gameOver=true; Sound.gameOverSound();}
             }
             if (snake.getCenterY() > HEIGHT - 20 - RADIUS - 3) {
                 if (!MenuController.isWallsActivated()) {
                     snake.setCenterY(20 + RADIUS + 3);}
-                else{gameOver=true;}
+                else{gameOver=true; Sound.gameOverSound();}
+
             } else if (snake.getCenterY() < 20) {
                 if (!MenuController.isWallsActivated()) {
                     snake.setCenterY(HEIGHT - 20 - RADIUS - 3);}
-                else{gameOver=true;}
+                else{gameOver=true; Sound.gameOverSound();}
+
             }
         }
         private boolean checkIfGameOver(){
@@ -236,7 +239,7 @@ public class App extends Application {
                         throw new RuntimeException(e);
                     }
                     score.setText("Game Over");
-                    Sound.gameOverSound();
+                    gameOverSound();
                     newSnake();
                     newFood();
                     try {
