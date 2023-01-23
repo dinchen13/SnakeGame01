@@ -35,6 +35,8 @@ public class App extends Application {
         private Snake snake;
         private Snake snake2;
         private Food food;
+        private Speedfood speedfood;
+        private int counter;
         private Obstacle obstacle;
         private Bomb bomb;
         private int speed;
@@ -111,12 +113,26 @@ public class App extends Application {
             speed = 200;
         }
         //Food erstellen:
-        public void newFood(){
+            boolean speedfoodX = false;
+            public void newFood(){
+                if (snake.length%4==0){
+                    speedfoodX = true;
+                }
             food = new Food(random.nextInt(560-RADIUS*2)+100+RADIUS,random.nextInt(560-RADIUS*2)+20+RADIUS, (AnchorPane) root,RADIUS);
             if(isInsideSnake(snake,food)){moveFoodAway();}
             if(twoPlayer&& isInsideSnake(snake2,food)){moveFoodAway();}
-            System.out.println("make Food");
+            System.out.println(counter);
+                }
+
+        public void newSpeedfood(){if (speedfoodX==true){
+            speedfood = new Speedfood(random.nextInt(560-RADIUS*2)+100+RADIUS,random.nextInt(560-RADIUS*2)+20+RADIUS, (AnchorPane) root,RADIUS);
+            if(isInsideSnake(snake,speedfood)){moveFoodAway();}
+            if(twoPlayer&& isInsideSnake(snake2,speedfood)){moveFoodAway();}
+            System.out.println("make Speedfood");
+            speedfoodX = false;
         }
+
+            }
         private void moveFoodAway(){   //interface machen oder abstract klasse damit ich nur eine methode brauch und .moveLocation benutzen kann
             food.moveLocation();
             if(twoPlayer){
@@ -192,6 +208,13 @@ public class App extends Application {
         private boolean isInsideFood(Shape shape){
             if (shape.intersects(food.getBoundsInLocal())) {
                 System.out.println("moveeee things 1");
+                return true;
+            }
+            return false;
+        }
+        private boolean isInsideSpeedfood(Shape shape){
+            if (shape.intersects(speedfood.getBoundsInLocal())) {
+                System.out.println("moveeee things 1.1");
                 return true;
             }
             return false;
@@ -299,17 +322,32 @@ public class App extends Application {
                         newObstacle();
                     }
                 }
-                else if (twoPlayer&&(snake2.hitFood(food))){
-                    snake2.eat(food);
-                    if (snake2.getLength()<=10){speed=speed-7;}
-                    else if (snake2.getLength()<=20){speed=speed-4;}
-                    else if (snake2.getLength()>20){speed=speed-1;}
+                else if(snake.hitFood(speedfood)){
+                    snake.eat(speedfood);
+                    if (snake.getLength()<=10){speed=speed-15;}
+                    else if (snake.getLength()<=20){speed=speed-7;}
+                    else if (snake.getLength()>20){speed=speed-4;}
+                    else if (snake.getLength()>30){}
+                    score.setText(""+snake.getLengthString());
+                    if (snake.getLength()%4==0){
+                    newSpeedfood();
+                    }
+                    newBomb();
+                    if(snake.getLength()%5==0){         //Make obstacles
+                        newObstacle();
+                    }
+                }
+                else if (twoPlayer&&(snake2.hitFood(speedfood))){
+                    snake2.eat(speedfood);
+                    if (snake2.getLength()<=10){speed=speed-15;}
+                    else if (snake2.getLength()<=20){speed=speed-7;}
+                    else if (snake2.getLength()>20){speed=speed-4;}
                     score.setText(""+snake2.getLengthString());
                     newFood();
                     if(snake.getLength()%2!=0){
                         newBomb();
                     }
-                    if(snake2.getLength()%2==0){         //Make obstacles
+                    if(snake2.getLength()%5==0){         //Make obstacles
                         newObstacle();
                     }
                 }
@@ -342,6 +380,7 @@ public class App extends Application {
             newSnake();
             newFood();
             newBomb();
+            //newSpeedfood();
             //Sound.playSound();
 
             //Scene setzten:
