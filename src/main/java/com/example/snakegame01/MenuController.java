@@ -19,7 +19,7 @@ public class MenuController {
     @FXML
     public Button start;
     @FXML
-    public Button howtoplay;
+    public Button howToPlay;
     @FXML
     public Button play;
     @FXML
@@ -59,51 +59,39 @@ public class MenuController {
     public static boolean isMultiplayer() {
         return multiplayer;
     }
-
     public static void setMulti(boolean value) {
         multiplayer = value;
     }
-
     public static boolean isSingleColor() {
         return singleColor;
     }
-
     public static void setColor(boolean value) {
         singleColor = value;
     }
-
     public static boolean isDarkMode() {
         return darkMode;
     }
-
     public static void setBackground(boolean value) {
         darkMode = value;
     }
-
     public static boolean isWallsActivated() {
         return wallsActivated;
     }
-
     public static void setWalls(boolean value) {
         wallsActivated = value;
     }
-
     public static boolean isObstaclesActivated() {
         return obstaclesActivated;
     }
-
     public static void setObstacles(boolean value) {
         obstaclesActivated = value;
     }
-
     public static boolean isBombsActivated() {
         return bombsActivated;
     }
-
     public static void setBombs(boolean value) {
         bombsActivated = value;
     }
-
 
     public void switchToMenu(ActionEvent event) throws Exception {
         Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("Menu.fxml")));
@@ -114,8 +102,6 @@ public class MenuController {
         stage.centerOnScreen();
         stage.show();
     }
-
-
     public void switchToGame(ActionEvent event) throws IOException {
         Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("Game.fxml")));
         //stage = (Stage) start.getScene().getWindow();
@@ -130,7 +116,6 @@ public class MenuController {
         App Snake = new App();
         Snake.start(stage);
     }
-
     public void switchToInfo(ActionEvent event) throws IOException {
         Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("Howtoplay.fxml")));
         //stage = (Stage) howtoplay.getScene().getWindow();
@@ -142,18 +127,16 @@ public class MenuController {
         stage.show();
 
     }
-
     public void exitGame() throws IOException {
-
         Alert a = new Alert(Alert.AlertType.NONE);
         a.setAlertType(Alert.AlertType.CONFIRMATION);
         a.setContentText("Do you want to close the game?");
         a.showAndWait();
         System.exit(0);
     }
-
     public void whichButtonIsPressed(ActionEvent event) {
         if (event.getSource()==buttonSinglePlayer) {
+            buttonSinglePlayer.setStyle("fx-background-color: #50C878");
             multiplayer = false;
         }
         else if (event.getSource()==buttonMultiPlayer) {

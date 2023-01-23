@@ -5,6 +5,7 @@
 <?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.ToggleButton?>
 <?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.effect.ColorAdjust?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.paint.Color?>
 <?import javafx.scene.paint.LinearGradient?>
@@ -37,21 +38,30 @@
          <font>
             <Font name="Arial" size="24.0" />
          </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
       </Button>
       <Text fill="#178954" layoutX="252.0" layoutY="117.0" strokeType="OUTSIDE" strokeWidth="0.0" text="MENU" textAlignment="CENTER" wrappingWidth="284.5947265625">
          <font>
             <Font name="High Tower Text" size="67.0" />
          </font>
       </Text>
-      <Button fx:id="howtoplay" layoutX="510.0" layoutY="496.0" mnemonicParsing="false" onAction="#switchToInfo" prefHeight="100.0" prefWidth="220.0" text="HOW TO PLAY">
+      <Button fx:id="howToPlay" layoutX="510.0" layoutY="496.0" mnemonicParsing="false" onAction="#switchToInfo" prefHeight="100.0" prefWidth="220.0" text="HOW TO PLAY">
          <font>
             <Font name="Arial" size="24.0" />
          </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
       </Button>
       <Button fx:id="quit" layoutX="510.0" layoutY="625.0" mnemonicParsing="false" onAction="#exitGame" prefHeight="100.0" prefWidth="220.0" text="QUIT">
          <font>
             <Font name="Arial" size="24.0" />
          </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
       </Button>
       <CheckBox layoutX="511.0" layoutY="266.0" mnemonicParsing="false" prefHeight="89.0" prefWidth="262.0" text="Game Sound">
          <font>
@@ -106,64 +116,118 @@
          <font>
             <Font name="Ink Free" size="16.0" />
          </font></Text>
-      <ToggleButton fx:id="buttonSinglePlayer" layoutX="114.0" layoutY="203.0" mnemonicParsing="false" onAction="#whichButtonIsPressed" prefHeight="26.0" prefWidth="117.0">
+      <ToggleButton fx:id="buttonSinglePlayer" layoutX="114.0" layoutY="203.0" mnemonicParsing="false" onAction="#whichButtonIsPressed" prefHeight="26.0" prefWidth="117.0" selected="true">
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor>
          <toggleGroup>
             <ToggleGroup fx:id="Players" />
          </toggleGroup>
+         <effect>
+            <ColorAdjust />
+         </effect>
       </ToggleButton>
-      <ToggleButton fx:id="buttonMultiPlayer" layoutX="231.0" layoutY="203.0" mnemonicParsing="false" onAction="#whichButtonIsPressed" prefHeight="26.0" prefWidth="117.0" toggleGroup="$Players" />
-      <ToggleButton fx:id="buttonOneColor" layoutX="114.0" layoutY="303.0" mnemonicParsing="false" onAction="#whichButtonIsPressed" prefHeight="26.0" prefWidth="117.0">
+      <ToggleButton fx:id="buttonMultiPlayer" layoutX="231.0" layoutY="203.0" mnemonicParsing="false" onAction="#whichButtonIsPressed" prefHeight="26.0" prefWidth="117.0" toggleGroup="$Players">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+         <effect>
+            <ColorAdjust />
+         </effect></ToggleButton>
+      <ToggleButton fx:id="buttonOneColor" layoutX="114.0" layoutY="303.0" mnemonicParsing="false" onAction="#whichButtonIsPressed" prefHeight="26.0" prefWidth="117.0" selected="true">
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor>
          <toggleGroup>
             <ToggleGroup fx:id="Color" />
          </toggleGroup>
+         <effect>
+            <ColorAdjust />
+         </effect>
       </ToggleButton>
-      <ToggleButton fx:id="buttonMulticolor" layoutX="231.0" layoutY="303.0" mnemonicParsing="false" onAction="#whichButtonIsPressed" prefHeight="26.0" prefWidth="117.0" toggleGroup="$Color" />
+      <ToggleButton fx:id="buttonMulticolor" layoutX="231.0" layoutY="303.0" mnemonicParsing="false" onAction="#whichButtonIsPressed" prefHeight="26.0" prefWidth="117.0" toggleGroup="$Color">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+         <effect>
+            <ColorAdjust />
+         </effect></ToggleButton>
       <Text layoutX="62.0" layoutY="328.0" strokeType="OUTSIDE" strokeWidth="0.0" text="snake">
          <font>
             <Font name="Ink Free" size="16.0" />
          </font></Text>
-      <ToggleButton fx:id="buttonLightMode" layoutX="114.0" layoutY="403.0" mnemonicParsing="false" onAction="#whichButtonIsPressed" prefHeight="26.0" prefWidth="117.0">
+      <ToggleButton fx:id="buttonLightMode" layoutX="114.0" layoutY="403.0" mnemonicParsing="false" onAction="#whichButtonIsPressed" prefHeight="26.0" prefWidth="117.0" selected="true">
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor>
          <toggleGroup>
             <ToggleGroup fx:id="Background" />
          </toggleGroup>
+         <effect>
+            <ColorAdjust />
+         </effect>
       </ToggleButton>
-      <ToggleButton fx:id="buttonDarkMode" layoutX="231.0" layoutY="403.0" mnemonicParsing="false" onAction="#whichButtonIsPressed" prefHeight="26.0" prefWidth="117.0" toggleGroup="$Background" />
-      <ToggleButton fx:id="buttonWithWalls" layoutX="114.0" layoutY="503.0" mnemonicParsing="false" onAction="#whichButtonIsPressed" prefHeight="26.0" prefWidth="117.0">
+      <ToggleButton fx:id="buttonDarkMode" layoutX="231.0" layoutY="403.0" mnemonicParsing="false" onAction="#whichButtonIsPressed" prefHeight="26.0" prefWidth="117.0" toggleGroup="$Background">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+         <effect>
+            <ColorAdjust />
+         </effect></ToggleButton>
+      <ToggleButton fx:id="buttonWithWalls" layoutX="114.0" layoutY="503.0" mnemonicParsing="false" onAction="#whichButtonIsPressed" prefHeight="26.0" prefWidth="117.0" selected="true">
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor>
          <toggleGroup>
             <ToggleGroup fx:id="Walls" />
          </toggleGroup>
+         <effect>
+            <ColorAdjust />
+         </effect>
       </ToggleButton>
-      <ToggleButton fx:id="buttonWithoutWalls" layoutX="231.0" layoutY="503.0" mnemonicParsing="false" onAction="#whichButtonIsPressed" prefHeight="26.0" prefWidth="117.0" toggleGroup="$Walls" />
-      <ToggleButton fx:id="buttonWithBombs" layoutX="114.0" layoutY="603.0" mnemonicParsing="false" onAction="#whichButtonIsPressed" prefHeight="26.0" prefWidth="117.0">
+      <ToggleButton fx:id="buttonWithoutWalls" layoutX="231.0" layoutY="503.0" mnemonicParsing="false" onAction="#whichButtonIsPressed" prefHeight="26.0" prefWidth="117.0" toggleGroup="$Walls">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+         <effect>
+            <ColorAdjust />
+         </effect></ToggleButton>
+      <ToggleButton fx:id="buttonWithBombs" layoutX="114.0" layoutY="603.0" mnemonicParsing="false" onAction="#whichButtonIsPressed" prefHeight="26.0" prefWidth="117.0" selected="true">
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor>
          <toggleGroup>
             <ToggleGroup fx:id="Bombs" />
          </toggleGroup>
+         <effect>
+            <ColorAdjust />
+         </effect>
       </ToggleButton>
-      <ToggleButton fx:id="buttonWithoutBombs" layoutX="231.0" layoutY="603.0" mnemonicParsing="false" onAction="#whichButtonIsPressed" prefHeight="26.0" prefWidth="117.0" toggleGroup="$Bombs" />
-      <ToggleButton fx:id="buttonWithObstacles" layoutX="114.0" layoutY="703.0" mnemonicParsing="false" onAction="#whichButtonIsPressed" prefHeight="26.0" prefWidth="117.0">
+      <ToggleButton fx:id="buttonWithoutBombs" layoutX="231.0" layoutY="603.0" mnemonicParsing="false" onAction="#whichButtonIsPressed" prefHeight="26.0" prefWidth="117.0" toggleGroup="$Bombs">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+         <effect>
+            <ColorAdjust />
+         </effect></ToggleButton>
+      <ToggleButton fx:id="buttonWithObstacles" layoutX="114.0" layoutY="703.0" mnemonicParsing="false" onAction="#whichButtonIsPressed" prefHeight="26.0" prefWidth="117.0" selected="true">
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor>
          <toggleGroup>
             <ToggleGroup fx:id="Obstacles" />
          </toggleGroup>
+         <effect>
+            <ColorAdjust />
+         </effect>
       </ToggleButton>
-      <ToggleButton fx:id="buttonWithoutObstacles" layoutX="231.0" layoutY="703.0" mnemonicParsing="false" onAction="#whichButtonIsPressed" prefHeight="26.0" prefWidth="117.0" toggleGroup="$Obstacles" />
+      <ToggleButton fx:id="buttonWithoutObstacles" layoutX="231.0" layoutY="703.0" mnemonicParsing="false" onAction="#whichButtonIsPressed" prefHeight="26.0" prefWidth="117.0" toggleGroup="$Obstacles">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+         <effect>
+            <ColorAdjust />
+         </effect></ToggleButton>
       <Text layoutX="363.0" layoutY="328.0" strokeType="OUTSIDE" strokeWidth="0.0" text="snake">
          <font>
             <Font name="Ink Free" size="16.0" />

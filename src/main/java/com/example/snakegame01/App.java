@@ -259,14 +259,14 @@ public class App extends Application {
                         }
                     }
                 }
-                if(snake2.eatSelf()){System.out.println("die 4");return true;}                 //die because of walls snake 2
+                if(snake2.checkIfEatSelf()){System.out.println("die 4");return true;}                 //die because of walls snake 2
                 if(snake.intersects(snake2.getBoundsInLocal())){System.out.println("die 5");return true;}//die because of intersection between snakes
                 if(snake2.intersects(snake.getBoundsInLocal())){System.out.println("die 6");return true;}//die because of intersection between snakes
             }
-            if (snake.eatSelf()) {                      //just for debugging
+            if (snake.checkIfEatSelf()) {                      //just for debugging
                 System.out.println("die 7");                                        //die because of intersection with self
             }
-            return snake.eatSelf();
+            return snake.checkIfEatSelf();
         }
         //+++++++++++++++++++++++++++++++++++++++updates the game state+++++++++++++++++++++++++++++++++++++++++++++++++
         //---------------------------------gets called in Runnable interface--------------------------------------------
