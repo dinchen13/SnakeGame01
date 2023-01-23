@@ -9,6 +9,7 @@ import javafx.scene.image.Image;
 
 
 public class Main extends Application {
+    //++++++++++++++++++++++++++++++++++++ just opens loading screen +++++++++++++++++++++++++++++++++++++++++
     @Override
     public void start(Stage stage) {
         try {
