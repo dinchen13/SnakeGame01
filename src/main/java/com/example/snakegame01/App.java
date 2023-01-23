@@ -44,6 +44,7 @@ public class App extends Application {
         private static boolean gameOverDueScreen =false;
         private static int openOnlyOnce =1;
 
+    //+++++++++++++++++++++++++++ swichtes back to the menu when menu button gets pressed ++++++++++++++++++++++++++
         public void switchToMenu(ActionEvent event) throws IOException {
             root = FXMLLoader.load(getClass().getResource("Menu.fxml"));
             stage = (Stage)((Node)event.getSource()).getScene().getWindow();
@@ -59,6 +60,7 @@ public class App extends Application {
             MenuController.setBombs(false);
             setToStartValues();
         }
+    //++++++++++++++++++++++++++++++++++++++++++++ reloads the game +++++++++++++++++++++++++++++++++++++++++++++++
         public void reload(ActionEvent event) throws IOException {
             Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("Game.fxml")));
             //stage = (Stage) start.getScene().getWindow();
@@ -74,11 +76,13 @@ public class App extends Application {
             App Snake = new App();
             Snake.start(stage);
         }
+    //+++++++++++++++++++++++++++++++++++ pauses when pause button gets pressed +++++++++++++++++++++++++++++++++++
         public void makePause(){
             if (!pause){pause=true;}
             else if (pause){pause=false;}
             System.out.println("Pause");
         }
+    //++++++++++++++++++++++++++++++++++++++ when game is over, GameOver screen opens ++++++++++++++++++++++++++++++++
         public void switchToGameOver() throws IOException {
             if(openOnlyOnce>=1) {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("GameOver.fxml"));
@@ -91,6 +95,8 @@ public class App extends Application {
                 stage.show();
             }
         }
+    //+++++++++++++++++++++++++++ sets values that might have change to their start value ++++++++++++++++++++++++++
+    //----------------------------------------is used when scene is switched----------------------------------------
         public static void setToStartValues(){
             gameOverDueScreen =false;
             Obstacle.deleteAll();
@@ -98,7 +104,7 @@ public class App extends Application {
             openOnlyOnce=1;
         }
 
-        //Snake erstellen:
+    //++++++++++++++++++++++++++++++++++++++ makes new Snake object ++++++++++++++++++++++++++++++++++++++++
         private void newSnake(){
             if(twoPlayer) {
                 snake = new Snake(580/2+100+200, 580/2-200, (AnchorPane) root, RADIUS + 3);
@@ -110,14 +116,15 @@ public class App extends Application {
             }
             speed = 200;
         }
-        //Food erstellen:
+    //++++++++++++++++++++++++++++++++++++++ makes new Food object ++++++++++++++++++++++++++++++++++++++++
         public void newFood(){
             food = new Food(random.nextInt(560-RADIUS*2)+100+RADIUS,random.nextInt(560-RADIUS*2)+20+RADIUS, (AnchorPane) root,RADIUS);
             if(isInsideSnake(snake,food)){moveFoodAway();}
             if(twoPlayer&& isInsideSnake(snake2,food)){moveFoodAway();}
             System.out.println("make Food");
         }
-        private void moveFoodAway(){   //interface machen oder abstract klasse damit ich nur eine methode brauch und .moveLocation benutzen kann
+    //+++++++++++++++++ changes location of food if it spawns inside another object ++++++++++++++++++++++
+        private void moveFoodAway(){
             food.moveLocation();
             if(twoPlayer){
                 while (isInsideSnake(snake,food)|| isInsideSnake(snake2,food)||isInsideObstacle(food)||isInsideBomb(food)){
@@ -130,7 +137,7 @@ public class App extends Application {
                 }
             }
         }
-        //Hindernisse einbauen
+    //++++++++++++++++++++++++++++++++++++++ makes new Obstacle object ++++++++++++++++++++++++++++++++++++++++
         public void newObstacle(){
             if(MenuController.isObstaclesActivated()){
             obstacle = new Obstacle(random.nextInt(560-SIZE*2)+100+SIZE,random.nextInt(560-SIZE*2)+20+SIZE, (AnchorPane) root,SIZE);
@@ -139,7 +146,7 @@ public class App extends Application {
                 System.out.println("make Wall");
             }
         }
-        //no object is allowed to spawn over another object
+    //+++++++++++++++++ changes location of obstacle if it spawns inside another object ++++++++++++++++++++++
         private void moveObstacleAway(){
             obstacle.moveLocation();
             if(twoPlayer){
@@ -153,7 +160,7 @@ public class App extends Application {
                 }
             }
         }
-        //make Bomb
+    //++++++++++++++++++++++++++++++++++++++ makes new Bomb object ++++++++++++++++++++++++++++++++++++++++
         public void newBomb(){
             if(MenuController.isBombsActivated()) {
                 bomb = new Bomb(random.nextInt(560 - RADIUS * 2) + 100 + RADIUS, random.nextInt(560 - RADIUS * 2) + 20 + RADIUS, (AnchorPane) root, RADIUS);
@@ -166,6 +173,7 @@ public class App extends Application {
                 System.out.println("make Bomb");
             }
         }
+    //+++++++++++++++++ changes location of bomb if it spawns inside another object ++++++++++++++++++++++
         private void moveBombAway(){
             bomb.moveLocation();
             if(twoPlayer){
@@ -179,7 +187,7 @@ public class App extends Application {
                 }
             }
         }
-        // ++++++++++++++ see if an object is spawned inside/over another object, as this isn´t wished +++++++++++++++++
+        // ++++++++++++++ sees if an object is spawned inside/over another object (as this isn´t wished) +++++++++++++++++
         private boolean isInsideSnake(Snake snake, Shape shape){
             for (int i = 0; i < snake.getLength(); i++) {
                 if((shape.intersects(snake.getBoundsInLocal()))||(shape.intersects(snake.getBoundsOfTail(i)))){
