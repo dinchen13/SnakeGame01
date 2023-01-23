@@ -14,14 +14,12 @@ import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
-
 import java.io.IOException;
 import java.util.Objects;
 
 import static com.example.snakegame01.Sound.playSound;
 
 public class MenuController {
-
     @FXML
     public Button start;
     @FXML
@@ -30,41 +28,73 @@ public class MenuController {
     public Button play;
     @FXML
     public Slider playerCount;
-    private static boolean multiplayer=false;
+    private static boolean multiplayer = false;
     @FXML
     public Slider snakeColor;
-    private static boolean singlecolor=false;
+    private static boolean singlecolor = false;
     @FXML
     public Slider backgroundColor;
-    private static boolean darkmode=false;
+    private static boolean darkmode = false;
     @FXML
     public Slider walls;
-    private static boolean wallsActivated=false;
+    private static boolean wallsActivated = false;
     @FXML
     public Slider bombs;
+    private static boolean bombsActivated = false;
     @FXML
     public Slider obstacles;
-    private static boolean obstaclesActivated=false;
-
-
+    private static boolean obstaclesActivated = false;
     private Stage stage;
     private Scene scene;
-    private Parent root;
 
-    public static boolean isMultiplayer (){
+    public static boolean isMultiplayer() {
         return multiplayer;
     }
-    public static void setMulti(boolean value){multiplayer=value;}
-    public static boolean isSinglecolor(){return singlecolor;}
-    public static void setColor(boolean value){singlecolor=value;}
-    public static boolean isDarkmode(){return darkmode;}
-    public static void setBackground(boolean value){darkmode=value;}
-    public static boolean isWallsActivated(){return wallsActivated;}
-    public static void setWalls(boolean value){wallsActivated=value;}
-    public static boolean isObstaclesActivated() {return obstaclesActivated;}
-    public static void setObstacles(boolean value) {
-        obstaclesActivated=value;
+
+    public static void setMulti(boolean value) {
+        multiplayer = value;
     }
+
+    public static boolean isSinglecolor() {
+        return singlecolor;
+    }
+
+    public static void setColor(boolean value) {
+        singlecolor = value;
+    }
+
+    public static boolean isDarkmode() {
+        return darkmode;
+    }
+
+    public static void setBackground(boolean value) {
+        darkmode = value;
+    }
+
+    public static boolean isWallsActivated() {
+        return wallsActivated;
+    }
+
+    public static void setWalls(boolean value) {
+        wallsActivated = value;
+    }
+
+    public static boolean isObstaclesActivated() {
+        return obstaclesActivated;
+    }
+
+    public static void setObstacles(boolean value) {
+        obstaclesActivated = value;
+    }
+
+    public static boolean isBombsActivated() {
+        return bombsActivated;
+    }
+
+    public static void setBombs(boolean value) {
+        bombsActivated = value;
+    }
+
 
     public void switchToMenu(ActionEvent event) throws Exception {
         Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("menu.fxml")));
@@ -74,7 +104,6 @@ public class MenuController {
         stage.setScene(scene);
         stage.centerOnScreen();
         stage.show();
-
     }
 
 
@@ -87,12 +116,13 @@ public class MenuController {
         stage.setScene(scene);
         stage.centerOnScreen();
         stage.show();
-        Sound.playSound();
+        //Sound.playSound();
 
         //launch Game:
         App Snake = new App();
         Snake.start(stage);
     }
+
     public void switchToInfo(ActionEvent event) throws IOException {
         Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("howtoplay.fxml")));
         //stage = (Stage) howtoplay.getScene().getWindow();
@@ -104,7 +134,8 @@ public class MenuController {
         stage.show();
 
     }
-    public void exitGame(ActionEvent Event) throws IOException {
+
+    public void exitGame() throws IOException {
 
         Alert a = new Alert(Alert.AlertType.NONE);
         a.setAlertType(Alert.AlertType.CONFIRMATION);
@@ -113,28 +144,21 @@ public class MenuController {
         System.exit(0);
     }
 
-    public void onSliderChanged(){
-        if(playerCount.getValue()>0.5){
-            multiplayer=true;
+    public void onSliderChanged() {
+        if (playerCount.getValue() > 0.5) {
+            multiplayer = true;
         }
-        if(snakeColor.getValue()>0.5){
-            singlecolor=true;
+        if (snakeColor.getValue() > 0.5) {
+            singlecolor = true;
         }
-        if(backgroundColor.getValue()>0.5){
-            darkmode=true;
+        if (backgroundColor.getValue() > 0.5) {
+            darkmode = true;
         }
-        if(walls.getValue()>0.5){
-            wallsActivated=true;
+        if (walls.getValue() > 0.5) {
+            wallsActivated = true;
         }
-        if(obstacles.getValue()>0.5){
-            obstaclesActivated=true;
+        if (obstacles.getValue() > 0.5) {
+            obstaclesActivated = true;
         }
-
-
     }
-
-
 }
-
-
-

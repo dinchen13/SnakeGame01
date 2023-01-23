@@ -48,9 +48,11 @@ public class GameOverController {
         stage.setScene(scene);
         stage.centerOnScreen();
         stage.show();
+        App.setToStartValues();
 
         //launch Game:
         App Snake = new App();
         Snake.start(stage);
     }
 }
+

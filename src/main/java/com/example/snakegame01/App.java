@@ -51,7 +51,6 @@ public class App extends Application {
             stage.setScene(scene);
             stage.centerOnScreen();
             stage.show();
-            //hier noch ne eigene classe oder methode schreiben die das alles zurücksetzt
             MenuController.setMulti(false);
             MenuController.setColor(false);
             MenuController.setBackground(false);
@@ -393,5 +392,6 @@ public class App extends Application {
             launch();
         }
     }
+
 
     //i love youuu kevin
